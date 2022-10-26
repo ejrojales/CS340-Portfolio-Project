@@ -53,44 +53,44 @@ INSERT INTO Personal_Trainers (pt_first_name, pt_last_name, phone_number, assign
 INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES (:customer_id_from_dropdown_Input, :trainer_id_from_dropdown_Input)
 
 -- Dissassociate a Customer with a Personal Trainer
-DELETE FROM Trainer_Customer WHERE id = :customer_ID_from_dropdown_Input
+DELETE FROM Trainer_Customer WHERE id = :customer_id_from_dropdown_Input
 
 
 
 -- CLASS SCHEDULE SECTION
 
 -- Get All Class Schedules
-SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+SELECT schedule_id, time, location_id, class_id, trainer_id FROM Class_Schedule
 
 -- Create a New Class Schedule
-INSERT INTO Customers (cst_first_name, cst_last_name, active, email) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput)
+INSERT INTO Class_Schedule (time, location_id, class_id, trainer_id) VALUES (:timeInput, location_id_from_dropdownInput, class_id_from_dropdownInput, :trainer_id_from_dropdownInput)
 
 
 
 -- FITNESS CLASS SECTION
 
 -- Get All Fitness Classes
-SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+SELECT class_id, class_name FROM Fitness_Classes
 
 -- Create a new Fitness Class
-INSERT INTO Customers (cst_first_name, cst_last_name, active, email) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput)
+INSERT INTO Fitness_Classes (class_name) VALUES (:class_nameInput)
 
 
 
 -- MEMBERSHIP LOCATION SECTION
 
 -- Get All Membership Locations
-SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+SELECT membership_location_id, membership_id, location_id FROM Membership_Location
 
 -- Associate a Membership with a Location
-INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
+INSERT INTO Membership_Location (membership_id, location_id) VALUES (:membership_id_from_dropdown_Input, :location_id_from_dropdown_Input)
 
 
 
 
 
 -- associate a character with a certificate (M-to-M relationship addition)
-INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
+-- INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
 
 -- dis-associate a certificate from a person (M-to-M relationship deletion)
-DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
+-- DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
