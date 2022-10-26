@@ -18,8 +18,13 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 /*
     ROUTES
 */
-app.get('/customers', function (req, res) {
+
+app.get('/', function (req, res) {
     res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
+});
+
+app.get('/customers', function (req, res) {
+    res.render('customers');                    // Note the call to render() and not send(). Using render() ensures the templating engine
 });                                         // will process this file, before sending the finished HTML to the client.
 
 app.get('/memberships', function (req, res) {

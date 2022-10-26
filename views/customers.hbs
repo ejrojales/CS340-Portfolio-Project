@@ -1,0 +1,91 @@
+<h1>Customers!</h1>
+
+<div>
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
+        href="/personal_trainers">Personal_Trainers</a>
+</div>
+
+
+<!--Read Customers-->
+<div style="display:block">
+    <p><strong>Browse Customers</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th><a href="#">New</a></th>
+                <th></th>
+                <th>ID</th>
+                <th>first name</th>
+                <th>last name</th>
+                <th>active</th>
+                <th>email</th>
+                <th>membership type</th>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td align="right">1</td>
+                <td>John</td>
+                <td>Smith</td>
+                <td>True</td>
+                <td>johnsmith@gmail.com</td>
+                <td>General - 60</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td align="right">2</td>
+                <td>Sarah</td>
+                <td>Jane</td>
+                <td>True</td>
+                <td>sarahjane@yahoo.com</td>
+                <td>General - 60</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td align="right">3</td>
+                <td>Kyle</td>
+                <td>Jones</td>
+                <td>True</td>
+                <td>kylejones@yahoo.com</td>
+                <td>Premium - 365</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<!--Create Customers-->
+<div id="insert" style="display: block">
+    <form id="addCustomer">
+        <legend><strong>Add Customer</strong></legend>
+        <fieldset class="fields">
+            <label> First Name </label> <input type="text" name="f_name"> <br>
+            <label> Last Name </label> <input type="text" name="l_name"> <br>
+            <label> Email </label> <input type="email" name="email"> <br>
+            <label> Membership </label> <input type="text" name="membership">
+        </fieldset>
+        <input class=" btn" type="submit" id="addCustomer" value="Add a Customer">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>
+<div id="update" style="display: block">
+    <form id="updateCustomer">
+        <legend><strong>Update Customer</strong></legend>
+        <fieldset class="fields">
+            <label>ID:</label> 1
+            <label> First Name </label> <input type="text" value="John" name="fname"> <br>
+            <label> Last Name </label> <input type="text" value="Smith" name="lname"> <br>
+            <input type="radio" name="isactive" value="Active">
+            <label>Active</label><br>
+            <input type="radio" name="isactive" value="Not Active">
+            <label>Not Active</label> <br>
+            <label> Email </label> <input type="email" name="email" value="johnsmith@gmail.com"> <br>
+            <label> Membership </label> <input type="text" name="membership" value="General - 60">
+        </fieldset>
+        <input class="btn" type="submit" id="UpdateSaveCustomer" value="Save Update Customer">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
