@@ -1,4 +1,59 @@
 <h1> Personal Trainers </h1>
-<div> 
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a href="/personal_trainers">Personal_Trainers</a>
+<div>
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
+        href="/personal_trainers">Personal_Trainers</a>
 </div>
+
+<!--Read Personal Trainers-->
+<div style="display:block">
+    <p><strong>Browse Personal Trainers</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="right">1</td>
+                <td>Chris</td>
+                <td>Bumstead</td>
+                <td>123-421-0091</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">2</td>
+                <td>Ronnie</td>
+                <td>Coleman</td>
+                <td>123-543-1212</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">3</td>
+                <td>Manny</td>
+                <td>Pacquiao</td>
+                <td>123-988-0912</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!--Create Personal Trainers-->
+<div id="insert" style="display: block">
+    <form id="addPersonalTrainer">
+        <legend><strong>Add Personal Trainer</strong></legend>
+        <fieldset class="fields">
+            <label> First Name </label> <input type="text" name="first name"> <br>
+            <label> Last Name </label> <input type="text" name="last name"> <br>
+            <label> Phone Number </label> <input type="text" name="phone number"> <br>
+        </fieldset>
+        <input class=" btn" type="submit" id="addPersonalTrainer" value="Add a Personal Trainer">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>

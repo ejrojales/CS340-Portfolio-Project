@@ -1,4 +1,59 @@
 <h1> Memberships </h1>
-<div> 
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a href="/personal_trainers">Personal_Trainers</a>
+<div>
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
+        href="/personal_trainers">Personal_Trainers</a>
 </div>
+
+<!--Read Membershps-->
+<div style="display:block">
+    <p><strong>Browse Memberships</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Duration</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="right">2</td>
+                <td>General - 60</td>
+                <td>Access to locations 1 & 2</td>
+                <td>60 Days</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">3</td>
+                <td>General - 365</td>
+                <td>Access to locations 1 & 2</td>
+                <td>365 Days</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">4</td>
+                <td>Premium - 365</td>
+                <td>All access</td>
+                <td>365 Days</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!--Create Membership-->
+<div id="insert" style="display: block">
+    <form id="addMembership">
+        <legend><strong>Add Membership</strong></legend>
+        <fieldset class="fields">
+            <label> Membership Name </label> <input type="text" name="membership name"> <br>
+            <label> Description </label> <input type="text" name="description"> <br>
+            <label> Duration </label> <input type="text" name="duration"> <br>
+        </fieldset>
+        <input class=" btn" type="submit" id="addMembership" value="Add a Membership">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>

@@ -1,4 +1,49 @@
-<h1> Memberships </h1>
-<div> 
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a href="/personal_trainers">Personal_Trainers</a>
+<h1> Fitness Classes </h1>
+<div>
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
+        href="/personal_trainers">Personal_Trainers</a>
 </div>
+
+<!--Read Fitness_Classes-->
+<div style="display:block">
+    <p><strong>Browse Fitness Classes</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="right">1</td>
+                <td>Yoga</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">2</td>
+                <td>Zumba</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">3</td>
+                <td>Pilates</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!--Create Fitness Class-->
+<div id="insert" style="display: block">
+    <form id="addFitnessClass">
+        <legend><strong>Add Fitness Class</strong></legend>
+        <fieldset class="fields">
+            <label> Fitness Class Name </label> <input type="text" name="fitness class name"> <br>
+        </fieldset>
+        <input class=" btn" type="submit" id="addFitnessClass" value="Add a Fitness Class">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>

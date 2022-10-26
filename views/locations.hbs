@@ -1,5 +1,59 @@
 <h1> Locations </h1>
 <div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a href="/locations">Locations</a> |
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> |
     <a href="fitness_classes">Fitness_Classes</a> | <a href="/personal_trainers">Personal_Trainers</a>
 </div>
+
+<!--Read Locations-->
+<div style="display:block">
+    <p><strong>Browse Locations</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <th>Operating Hours</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td align="right">1</td>
+                <td>8:00 - 21:00</td>
+                <td>123-456-8910</td>
+                <td>7292 Dictum Av.</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">2</td>
+                <td>8:00 - 21:00</td>
+                <td>123-563-7401</td>
+                <td>5587 Nunc. Avenue</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">3</td>
+                <td>5:00 - 23:00</td>
+                <td>123-686-2121</td>
+                <td>5037 Diam Rd.</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!--Create Location-->
+<div id="insert" style="display: block">
+    <form id="addLocation">
+        <legend><strong>Add Location</strong></legend>
+        <fieldset class="fields">
+            <label> Operating Hourse </label> <input type="text" name="operating hours"> <br>
+            <label> Phone Number </label> <input type="text" name="phone number"> <br>
+            <label> Address </label> <input type="text" name="address"> <br>
+        </fieldset>
+        <input class=" btn" type="submit" id="addLocation" value="Add a Location">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>
