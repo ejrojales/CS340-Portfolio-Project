@@ -46,8 +46,17 @@ INSERT INTO Locations (operating_hours, phone_number, address) VALUES (:operatin
 -- get all Personal Trainer IDs, first names, last names, phone numbers, and assigned locations
 SELECT trainer_id, pt_first_name, pt_last_name, phone_number, assigned_location FROM Personal_Trainers
 
+-- Populate locations dropdown for adding new PT
+SELECT location_id FROM Locations
+
 -- Add a new Personal Trainer
 INSERT INTO Personal_Trainers (pt_first_name, pt_last_name, phone_number, assigned_location) VALUES (:pt_first_nameInput, :pt_last_nameInput, phone_numberInput, :assigned_location_from_dropdown_Input)
+
+-- Get Customer names for purpose of dropdown list
+SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+
+-- Get Trainer names for purpose of dropdown list
+SELECT trainer_id, pt_first_name, pt_last_name FROM Personal_Trainers
 
 -- Associate a Customer with a Personal Trainer
 INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES (:customer_id_from_dropdown_Input, :trainer_id_from_dropdown_Input)
@@ -61,6 +70,13 @@ DELETE FROM Trainer_Customer WHERE id = :customer_id_from_dropdown_Input
 
 -- Get All Class Schedules
 SELECT schedule_id, time, location_id, class_id, trainer_id FROM Class_Schedule
+
+-- Get Location id for purpose of Class Schedule
+SELECT location_id FROM Locations
+-- Get Class id for purpose of Class Schedule
+SELECT class_id, class_name FROM Fitness_Classes
+-- Get Trainer id for purpose of Class Schedule
+SELECT trainer_id, pt_first_name, pt_last_name FROM Personal_Trainers
 
 -- Create a New Class Schedule
 INSERT INTO Class_Schedule (time, location_id, class_id, trainer_id) VALUES (:timeInput, location_id_from_dropdownInput, class_id_from_dropdownInput, :trainer_id_from_dropdownInput)
@@ -82,15 +98,10 @@ INSERT INTO Fitness_Classes (class_name) VALUES (:class_nameInput)
 -- Get All Membership Locations
 SELECT membership_location_id, membership_id, location_id FROM Membership_Location
 
+-- Get membership id for purpose of dropdown
+SELECT membership_id, membership_name FROM Memberships
+-- Get Location id for purpose of dropdown
+SELECT location_id FROM Locations
+
 -- Associate a Membership with a Location
-INSERT INTO Membership_Location (membership_id, location_id) VALUES (:membership_id_from_dropdown_Input, :location_id_from_dropdown_Input)
-
-
-
-
-
--- associate a character with a certificate (M-to-M relationship addition)
--- INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
-
--- dis-associate a certificate from a person (M-to-M relationship deletion)
--- DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
+INSERT INTO Membership_Location (membership_id, location_id) VALUES (:membership_id_from_dropdown_Input, :location_id_from_dropdown_Input);
