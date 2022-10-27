@@ -43,6 +43,18 @@ app.get('/personal_trainers', function (req, res) {
     res.render('personal_trainers');
 });
 
+app.get('/trainer_customer', function (req, res) {
+    res.render('trainer_customer');
+});
+
+app.get('/class_schedule', function (req, res) {
+    res.render('class_schedule');
+});
+
+app.get('/membership_location', function (req, res) {
+    res.render('membership_location');
+});
+
 /*
     LISTENER
 */

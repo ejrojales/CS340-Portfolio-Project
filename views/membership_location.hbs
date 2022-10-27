@@ -1,0 +1,89 @@
+<h1>Membership Location</h1>
+
+<div>
+    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
+        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
+        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
+        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
+</div>
+
+<!--Read Membershp Locations-->
+<div style="display:block">
+    <p><strong>Browse Membership_Location</strong></p>
+    <table border="1" cellpadding="5">
+        <tbody>
+            <tr>
+                <th>Membership Location ID</th>
+                <th>Membership ID</th>
+                <th>Location ID</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="right">1</td>
+                <td align="right">2</td>
+                <td align="right">1</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">2</td>
+                <td align="right">2</td>
+                <td align="right">2</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">3</td>
+                <td align="right">3</td>
+                <td align="right">1</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">4</td>
+                <td align="right">3</td>
+                <td align="right">2</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">5</td>
+                <td align="right">4</td>
+                <td align="right">1</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">6</td>
+                <td align="right">4</td>
+                <td align="right">2</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="right">7</td>
+                <td align="right">4</td>
+                <td align="right">3</td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+<!--Create Membership Location-->
+<div id="insert" style="display: block">
+    <form id="addMembershipLocation">
+        <legend><strong>Add Membership Location</strong></legend>
+        <fieldset class="fields">
+            <label> Membership ID </label> <select name="membership name">
+                <option value="general - 60">2. General - 60</option>
+                <option value="general - 365">3. General - 365</option>
+                <option value="premium - 365">4. Premium - 365</option>
+            </select> <br>
+            <label> Location ID </label>
+            <select name="location address">
+                <option value="7292 Dictum Av.">1. 7292 Dictum Av.</option>
+                <option value="5587 Nunc. Avenue">2. 5587 Nunc. Avenue</option>
+                <option value="5037 Diam Rd.">3. 5037 Diam Rd.</option>
+            </select> <br>
+        </fieldset>
+        <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership Location">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+<br>
