@@ -37,7 +37,7 @@ CREATE OR REPLACE TABLE `Customers` (
   CONSTRAINT `fk_Customers_Memberships1`
     FOREIGN KEY (`membership_id`)
     REFERENCES `Memberships` (`membership_id`)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE
     )
 ENGINE = InnoDB;
@@ -109,7 +109,7 @@ CREATE OR REPLACE TABLE `Membership_Location` (
   CONSTRAINT `fk_Membership_Location_Memberships1`
     FOREIGN KEY (`membership_id`)
     REFERENCES `Memberships` (`membership_id`)
-    ON DELETE SET NULL
+    ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Membership_Location_Locations1`
     FOREIGN KEY (`location_id`)
