@@ -55,25 +55,25 @@
     <form id="addClassSchedule">
         <legend><strong>Add Class Schedule</strong></legend>
         <fieldset class="fields">
-            <label> Time </label> <input type="text" name="time"> <br>
+            <label> Time </label> <input type="text" name="time"> <span>*Required</span> <br>
             <label> Location ID </label>
             <select name="location id">
-                <option value="7292 Dictum Av.">1. 7292 Dictum Av.</option>
-                <option value="5587 Nunc. Avenue">2. 5587 Nunc. Avenue</option>
-                <option value="5037 Diam Rd.">3. 5037 Diam Rd.</option>
-            </select> <br>
+                <option value="1">1. 7292 Dictum Av.</option>
+                <option value="2">2. 5587 Nunc. Avenue</option>
+                <option value="3">3. 5037 Diam Rd.</option>
+            </select> <span>*Required</span> <br>
             <label> Class ID </label>
             <select name="class id">
                 <option value="yoga">1. Yoga</option>
                 <option value="zumba">2. Zumba</option>
                 <option value="pilates">3. Pilates</option>
-            </select> <br>
+            </select> <span>*Required</span> <br>
             <label> Trainer ID </label>
             <select name="trainer id">
-                <option value="1. Chris Bumstead">1. Chris Bumstead</option>
-                <option value="2. Ronnie Coleman">2. Ronnie Coleman</option>
-                <option value="3. Manny Pacquiao">3. Manny Pacquiao</option>
-            </select> <br>
+                <option value="1">1. Chris Bumstead</option>
+                <option value="2">2. Ronnie Coleman</option>
+                <option value="3">3. Manny Pacquiao</option>
+            </select> <span>*Required</span> <br>
         </fieldset>
         <input class=" btn" type="submit" id="addClassSchedule" value="Add a Class Schedule">
         <input class="btn" type="button" value="cancel">

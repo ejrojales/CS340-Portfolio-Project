@@ -16,6 +16,7 @@
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
+                <th>Assigned Location</th>
                 <td></td>
             </tr>
             <tr>
@@ -23,6 +24,7 @@
                 <td>Chris</td>
                 <td>Bumstead</td>
                 <td>123-421-0091</td>
+                <td align="right">1</td>
                 <td><a href="#">Delete</a></td>
             </tr>
             <tr>
@@ -30,6 +32,7 @@
                 <td>Ronnie</td>
                 <td>Coleman</td>
                 <td>123-543-1212</td>
+                <td align="right">2</td>
                 <td><a href="#">Delete</a></td>
             </tr>
             <tr>
@@ -37,6 +40,7 @@
                 <td>Manny</td>
                 <td>Pacquiao</td>
                 <td>123-988-0912</td>
+                <td align="right">3</td>
                 <td><a href="#">Delete</a></td>
             </tr>
         </tbody>
@@ -49,9 +53,15 @@
     <form id="addPersonalTrainer">
         <legend><strong>Add Personal Trainer</strong></legend>
         <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="first name"> <br>
-            <label> Last Name </label> <input type="text" name="last name"> <br>
-            <label> Phone Number </label> <input type="text" name="phone number"> <br>
+            <label> First Name </label> <input type="text" name="first name"> <span>*Required</span><br>
+            <label> Last Name </label> <input type="text" name="last name"> <span>*Required</span> <br>
+            <label> Phone Number </label> <input type="text" name="phone number"> <span>*Required</span> <br>
+            <label> Assigned Location </label>
+            <select name="location id">
+                <option value="1">1. 7292 Dictum Av.</option>
+                <option value="2">2. 5587 Nunc. Avenue</option>
+                <option value="3">3. 5037 Diam Rd.</option>
+            </select> <span>*Required</span> <br>
         </fieldset>
         <input class=" btn" type="submit" id="addPersonalTrainer" value="Add a Personal Trainer">
         <input class="btn" type="button" value="cancel">
