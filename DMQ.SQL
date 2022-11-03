@@ -58,6 +58,9 @@ SELECT customer_id, cst_first_name, cst_last_name FROM Customers
 -- Get Trainer names for purpose of dropdown list
 SELECT trainer_id, pt_first_name, pt_last_name FROM Personal_Trainers
 
+-- Populate trainer dropdown for Trainer_Customer
+SELECT trainer_id FROM Trainer_Customer
+
 -- Associate a Customer with a Personal Trainer
 INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES (:customer_id_from_dropdown_Input, :trainer_id_from_dropdown_Input)
 
