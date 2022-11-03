@@ -30,7 +30,7 @@ CREATE OR REPLACE TABLE `Customers` (
   `cst_first_name` VARCHAR(45) NOT NULL,
   `cst_last_name` VARCHAR(45) NOT NULL,
   `active` TINYINT(1) NOT NULL DEFAULT 1,
-  `email` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45),
   `membership_id` INT NOT NULL,
   PRIMARY KEY (`customer_id`, `membership_id`),
   INDEX `fk_Customers_Memberships1_idx` (`membership_id` ASC) VISIBLE,
