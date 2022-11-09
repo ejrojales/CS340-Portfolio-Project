@@ -1,7 +1,7 @@
 -- CUSTOMER SECTION
 
 -- get all Customer IDs and Names 
-SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id FROM Customers
 
 -- Add a new Customer
 INSERT INTO Customers (cst_first_name, cst_last_name, active, email) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput)

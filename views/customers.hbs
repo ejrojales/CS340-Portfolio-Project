@@ -10,44 +10,34 @@
 <!--Read Customers-->
 <div style="display:block">
     <p><strong>Browse Customers</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="customers-table">
+        <thead>
+            <!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders -->
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
             <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Active</th>
-                <th>Email</th>
-                <th>Membership Type</th>
-                <td></td>
-            </tr>
-            <tr>
-                <td align="right">1</td>
-                <td>John</td>
-                <td>Smith</td>
-                <td>True</td>
-                <td>johnsmith@gmail.com</td>
-                <td>General - 60</td>
+                <td>{{this.ID}}</td>
+                <td>{{this.First_Name}}</td>
+                <td>{{this.Last_Name}}</td>
+                <td>{{this.Active}}</td>
+                <td>{{this.Email}}</td>
+                <td>{{this.Membership_ID}}</td>
                 <td><a href="#">Delete</a></td>
             </tr>
-            <tr>
-                <td align="right">2</td>
-                <td>Sarah</td>
-                <td>Jane</td>
-                <td>True</td>
-                <td>sarahjane@yahoo.com</td>
-                <td>General - 60</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td>Kyle</td>
-                <td>Jones</td>
-                <td>True</td>
-                <td>kylejones@yahoo.com</td>
-                <td>Premium - 365</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -69,12 +59,16 @@
 <!--Create Customers-->
 <div id="insert" style="display: block">
     <form id="addCustomer">
-        <legend><strong>Add Customer</strong></legend>
+        <legend><strong>Add a Customer</strong></legend>
         <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="f_name"> <span>*Required</span> <br>
-            <label> Last Name </label> <input type="text" name="l_name"> <span>*Required</span> <br>
-            <label> Email </label> <input type="email" name="email"> <br>
-            <label> Membership </label> <input type="text" name="membership"> <span>*Required</span>
+            <label> First Name </label> <input type="text" name="input-fname"> <span>*Required</span> <br>
+            <label> Last Name </label> <input type="text" name="input-lname"> <span>*Required</span> <br>
+            <label> Email </label> <input type="email" name="input-email"> <br>
+            <label> Membership </label> <select name="input-membership-id">
+                <option value="2">2. General - 60</option>
+                <option value="3">3. General - 365</option>
+                <option value="4">4. Premium - 365</option>
+            </select> <span>*Required</span>
         </fieldset>
         <input class=" btn" type="submit" id="addCustomer" value="Add a Customer">
         <input class="btn" type="button" value="cancel">
