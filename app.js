@@ -5,6 +5,7 @@
 // Express
 var express = require('express');
 var app = express();
+app.use(express.static('/public'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 PORT = 8300;                 // Set a port number at the top so it's easy to change in the future
@@ -18,8 +19,6 @@ var exphbs = require('express-handlebars');     // Import express-handlebars
 app.engine('.hbs', engine({ extname: ".hbs" }));  // Create an instance of the handlebars engine to process templates
 app.set('view engine', '.hbs');                 // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
-app.use(express.static('public'));
-
 /*
     ROUTES
 */
@@ -31,11 +30,18 @@ app.get('/', function (req, res) {
 app.get('/customers', function (req, res) {
     let query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers;";               // Define our query
 
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    let query2 = "SELECT * FROM Memberships;";  // Query for dynamic dropdown menu to display memberships
 
-        res.render('customers', { data: rows });                  // Render the index.hbs file, and also send the renderer
-    })                                                            // an object where 'data' is equal to the 'rows' we
-});                                                               // received back from the query
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+        let customers = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let memberships = rows
+            res.render('customers', { data: customers, memberships: memberships });
+        })
+
+    })
+});
 
 app.post('/add-customer-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
@@ -57,10 +63,39 @@ app.post('/add-customer-form', function (req, res) {
         // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
         // presents it on the screen
         else {
-            res.redirect('/');
+            res.redirect('/customers');
         }
     })
 })
+
+app.delete('/delete-person-ajax/', function (req, res, next) {
+    let data = req.body;
+    let personID = parseInt(data.id);
+    let deleteTrainer_Customer = `DELETE FROM Trainer_Customer WHERE customer_id = ?`;
+    let deleteCustomer = `DELETE FROM Customers WHERE customer_id = ?`;
+    // Run the 1st query
+    db.pool.query(deleteTrainer_Customer, [personID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            // Run the second query
+            db.pool.query(deleteCustomer, [personID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
 
 app.get('/memberships', function (req, res) {
     res.render('memberships');
