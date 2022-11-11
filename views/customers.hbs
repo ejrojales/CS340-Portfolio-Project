@@ -166,7 +166,7 @@
                 // Get the location of the row where we found the matching person ID
                 let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-                // Get td of phoneNumber
+                // Get td of email
                 let td = updateRowIndex.getElementsByTagName("td")[4];
 
                 // Reassign phoneNumber to our value we updated to
@@ -210,15 +210,11 @@
 
 
     function deleteRow(personID) {
-        // let pID = personID.toString()
-        // console.log("Inside deleteRow");
-        // console.log(pID)
         let table = document.getElementById("customers-table");
         for (let i = 0, row; row = table.rows[i]; i++) {
             // getAtt = table.rows[i].cells[0].innerHTML
             // console.log(getAtt)
             if (table.rows[i].cells[0].innerHTML == personID.toString()) {
-                // console.log("Found user with personID=" + pID);
                 table.deleteRow(i);
                 break;
             }
