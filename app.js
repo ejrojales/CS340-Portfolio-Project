@@ -5,9 +5,11 @@
 // Express
 var express = require('express');
 var app = express();
-app.use(express.static('/public'));
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+
+app.use("/public", express.static(__dirname + "/public"));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 PORT = 8300;                 // Set a port number at the top so it's easy to change in the future
 
 // Database
@@ -91,6 +93,41 @@ app.delete('/delete-person-ajax/', function (req, res, next) {
                     res.sendStatus(400);
                 } else {
                     res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
+
+app.put('/put-person-ajax', function (req, res, next) {
+    let data = req.body;
+    let email = data.email;
+    let person = parseInt(data.fullname);
+
+
+    let queryUpdateEmail = `UPDATE Customers SET email = ? WHERE Customers.customer_id = ?`;
+    let selectCustomer = `SELECT * FROM Customers WHERE customer_id = ?`
+
+    // Run the 1st query
+    db.pool.query(queryUpdateEmail, [email, person], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else {
+            // Run the second query
+            db.pool.query(selectCustomer, [person], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
                 }
             })
         }
