@@ -14,7 +14,7 @@ SET AUTOCOMMIT = 0;
 -- Table Memberships`
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Memberships` (
-  `membership_id` INT NOT NULL AUTO_INCREMENT,
+  `membership_id` INT AUTO_INCREMENT,
   `membership_name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   `duration` VARCHAR(45) NOT NULL,
@@ -63,7 +63,7 @@ CREATE OR REPLACE TABLE `Personal_Trainers` (
   `pt_first_name` VARCHAR(45) NOT NULL,
   `pt_last_name` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) NOT NULL,
-  `assigned_location` INT NOT NULL,
+  `assigned_location` INT,
   PRIMARY KEY (`trainer_id`),
   INDEX `fk_Personal_Trainers_Locations1_idx` (`assigned_location` ASC) VISIBLE,
   CONSTRAINT `fk_Personal_Trainers_Locations1`
@@ -79,8 +79,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Trainer_Customer` (
   `tc_id` INT NOT NULL AUTO_INCREMENT,
-  `customer_id` INT NOT NULL,
-  `trainer_id` INT NOT NULL,
+  `customer_id` INT,
+  `trainer_id` INT,
   PRIMARY KEY (`tc_id`),
   INDEX `fk_Trainer_Customer_Customers1_idx` (`customer_id` ASC) VISIBLE,
   INDEX `fk_Trainer_Customer_Personal_Trainers1_idx` (`trainer_id` ASC) VISIBLE,
@@ -101,8 +101,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Membership_Location` (
   `membership_location_id` INT NOT NULL AUTO_INCREMENT,
-  `membership_id` INT NOT NULL,
-  `location_id` INT NOT NULL,
+  `membership_id` INT,
+  `location_id` INT,
   PRIMARY KEY (`membership_location_id`),
   INDEX `fk_Membership_Location_Memberships1_idx` (`membership_id` ASC) VISIBLE,
   INDEX `fk_Membership_Location_Locations1_idx` (`location_id` ASC) VISIBLE,
@@ -135,9 +135,9 @@ ENGINE = InnoDB;
 CREATE OR REPLACE TABLE `Class_Schedule` (
   `schedule_id` INT NOT NULL AUTO_INCREMENT,
   `time` VARCHAR(45) NOT NULL,
-  `location_id` INT NOT NULL,
-  `class_id` INT NOT NULL,
-  `trainer_id` INT NOT NULL,
+  `location_id` INT,
+  `class_id` INT,
+  `trainer_id` INT,
   PRIMARY KEY (`schedule_id`),
   INDEX `fk_Class_Schedule_Locations1_idx` (`location_id` ASC) VISIBLE,
   INDEX `fk_Class_Schedule_Fitness_Classes1_idx` (`class_id` ASC) VISIBLE,
