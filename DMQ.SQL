@@ -4,7 +4,7 @@
 SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id FROM Customers
 
 -- Add a new Customer
-INSERT INTO Customers (cst_first_name, cst_last_name, active, email) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput)
+INSERT INTO Customers (cst_first_name, cst_last_name, active, email, membership_id) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput, :membership_idInput)
 
 -- get all customers IDs, names, membership type, and active status for purposes of member inventory
 SELECT customer_id, cst_first_name, cst_last_name, membership_id, active FROM Customers 
@@ -18,6 +18,12 @@ UPDATE Customers SET active = :activeInput WHERE customer_id= :customer_ID_selec
 -- Update Customer Information
 UPDATE Customers SET cst_frst_name = :cst_first_nameInput, cst_last_name = :cst_last_nameInput, email = :emailInput WHERE customer_id= :customer_ID_selected_from_customers_page
 
+-- Get Customer names for purpose of dropdown list
+SELECT customer_id, cst_first_name, cst_last_name FROM Customers
+
+-- Delete a customer from the customers table based off customer id
+DELETE FROM Customers WHERE id = :customer_id_from_dropdown_Input
+
 
 -- MEMBERSHIP SECTION
 
@@ -27,7 +33,11 @@ SELECT membership_id, membership_name, description, duration FROM Memberships
 -- Add a new Membership
 INSERT INTO Memberships (membership_name, description, duration) VALUES (:membership_nameInput, :descriptionInput, :durationInput)
 
+-- Get membership id, membership name, and description for dropdown
+SELECT membership_id, membership_name, description FROM Memberships
 
+-- Delete a membership from the membership table based off id from dropdown
+DELETE FROM Memberships WHERE id = :membership_id_from_dropdown_Input
 
 
 -- LOCATION SECTION
@@ -37,6 +47,12 @@ SELECT location_id, operating_hours, phone_number, address FROM Locations
 
 -- Add a new Location
 INSERT INTO Locations (operating_hours, phone_number, address) VALUES (:operating_hoursInput, :phone_numberInput, :addressInput)
+
+-- Get location id and address for dropdown
+SELECT location_id, address FROM Locations
+
+-- Delete a location based off the location_id
+DELETE FROM Locations WHERE id = :location_id_from_dropdown_Input
 
 
 
@@ -84,6 +100,11 @@ SELECT trainer_id, pt_first_name, pt_last_name FROM Personal_Trainers
 -- Create a New Class Schedule
 INSERT INTO Class_Schedule (time, location_id, class_id, trainer_id) VALUES (:timeInput, location_id_from_dropdownInput, class_id_from_dropdownInput, :trainer_id_from_dropdownInput)
 
+-- Get class id, trainer id, and location id from class schedules
+SELECT class_id, trainer_id, location_id FROM Class_Schedule
+
+-- Delete a class from the class schedule
+DELETE FROM Class_Schedule WHERE id = :class_id_from_dropdown_Input
 
 
 -- FITNESS CLASS SECTION
@@ -94,6 +115,11 @@ SELECT class_id, class_name FROM Fitness_Classes
 -- Create a new Fitness Class
 INSERT INTO Fitness_Classes (class_name) VALUES (:class_nameInput)
 
+-- Get Class id and name from Fitness Classes
+SELECT class_id, class_name FROM Fitness_Classes
+
+-- Delete a class from the fitness classes table
+DELETE FROM Fitness_Classes WHERE id = :class_id_from_dropdown_Input
 
 
 -- MEMBERSHIP LOCATION SECTION
@@ -108,3 +134,9 @@ SELECT location_id FROM Locations
 
 -- Associate a Membership with a Location
 INSERT INTO Membership_Location (membership_id, location_id) VALUES (:membership_id_from_dropdown_Input, :location_id_from_dropdown_Input);
+
+-- Get Membership location id, membership id, and location id for dropdown
+SELECT membership_location_id, membership_id, location_id FROM Membership_Location
+
+-- Delete a value from Membership Location table
+DELETE FROM Membership_Location WHERE id = :membership_location_id_from_dropdown_Input
