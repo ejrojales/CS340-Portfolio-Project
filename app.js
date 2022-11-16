@@ -146,7 +146,7 @@ app.put('/put-person-ajax', function (req, res, next) {
 
 app.get('/memberships', function (req, res) {
     query1 = "SELECT membership_id as ID, membership_name as Membership_Name, description as Description, duration as Duration FROM Memberships";
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    db.pool.query(query1, function (error, rows, fields) {
         let memberships = rows;
         res.render('memberships', { data: memberships });
     })
@@ -198,9 +198,58 @@ app.delete('/delete-membership-ajax/', function (req, res, next) {
     })
 });
 
-
 app.get('/locations', function (req, res) {
-    res.render('locations');
+    query1 = "SELECT location_id as ID, operating_hours as 'Operating Hours', phone_number as 'Phone Number', address as Address FROM Locations";
+    db.pool.query(query1, function (error, rows, fields) {
+        let locations = rows;
+        res.render('locations', { data: locations });
+    })
+});
+
+app.post('/add-location-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Locations (operating_hours, phone_number, address) VALUES ('${data['input-operatinghours']}', '${data['input-phonenumber']}', '${data['input-address']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/locations');
+        }
+    })
+})
+
+app.delete('/delete-location-ajax/', function (req, res, next) {
+    let data = req.body;
+    let locationID = parseInt(data.id);
+    let deleteMembership_Location = `DELETE FROM Membership_Location WHERE location_id = ?`;
+    let deleteLocation = `DELETE FROM Locations WHERE location_id = ?`;
+    // Run the 1st query
+    db.pool.query(deleteMembership_Location, [locationID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            // Run the second query
+            db.pool.query(deleteLocation, [locationID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
 });
 
 app.get('/fitness_classes', function (req, res) {
