@@ -7,7 +7,6 @@ var express = require('express');
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
-//app.use(express.static('public'))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,7 +30,17 @@ app.get('/', function (req, res) {
 });
 
 app.get('/customers', function (req, res) {
-    let query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers;";               // Define our query
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.lname === undefined) {
+        query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else {
+        query1 = `SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers WHERE cst_last_name LIKE "${req.query.lname}%"`
+    }
 
     let query2 = "SELECT * FROM Memberships;";  // Query for dynamic dropdown menu to display memberships
 
