@@ -358,7 +358,55 @@ app.delete('/delete-trainer-ajax/', function (req, res, next) {
 });
 
 app.get('/trainer_customer', function (req, res) {
-    res.render('trainer_customer');
+    let query1 = 'SELECT tc_id as ID, Concat(Customers.cst_first_name, " ", Customers.cst_last_name) as "Customer", Concat(Personal_Trainers.pt_first_name, " ", Personal_Trainers.pt_last_name) as "Personal Trainer" from Trainer_Customer inner join Customers on Customers.customer_id = Trainer_Customer.customer_id inner join Personal_Trainers on Personal_Trainers.trainer_id = Trainer_Customer.trainer_id';
+    let query2 = "SELECT * FROM Customers;";
+    let query3 = "SELECT * FROM Personal_Trainers;";
+
+    db.pool.query(query1, function (error, rows, fields) {
+        let trainer_customer = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let customers = rows
+
+            db.pool.query(query3, (error, rows, fields) => {
+                let trainers = rows
+                res.render('trainer_customer', { data: trainer_customer, customers: customers, trainers: trainers });
+            })
+        })
+
+    })
+});
+
+app.post('/add-trainercustomer-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES ('${data['input-customer']}', '${data['input-trainer']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/trainer_customer');
+        }
+    })
+});
+
+app.delete('/delete-trainercustomer-ajax/', function (req, res, next) {
+    let data = req.body;
+    let tcID = parseInt(data.id);
+    let deleteTrainer_Customer = `DELETE FROM Trainer_Customer WHERE tc_id = ?`;
+
+    db.pool.query(deleteTrainer_Customer, [tcID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
 });
 
 app.get('/class_schedule', function (req, res) {

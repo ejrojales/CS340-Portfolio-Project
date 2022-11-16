@@ -9,32 +9,30 @@
 <!--Read Trainer_Customer-->
 <div style="display:block">
     <p><strong>Browse Trainer Customer</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="trainercustomer-table">
+        <thead>
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
-            <tr>
-                <th>ID</th>
-                <th>Customer ID</th>
-                <th>Trainer ID</th>
-                <td></td>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.[Customer]}}</td>
+                <td>{{this.[Personal Trainer]}}</td>
+                <td><button onclick="deleteTrainerCustomer({{this.ID}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">1</td>
-                <td align="right">1</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">2</td>
-                <td align="right">2</td>
-                <td align="right">1</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td align="right">3</td>
-                <td align="right">3</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -42,24 +40,28 @@
 
 <!--Create Trainer_Customer-->
 <div id="insert" style="display: block">
-    <form id="addTrainerCustomer">
-        <legend><strong>Add Trainer Customer</strong></legend>
+    <form id="addTrainerCustomer" method="POST" action="/add-trainercustomer-form">
+        <legend><strong>Add a Trainer Customer</strong></legend>
         <fieldset class="fields">
-            <label> Customer ID </label>
-            <select name="customer id">
-                <option value="1. John Smith">1. John Smith</option>
-                <option value="2. Sarah Jane">2. Sarah Jane</option>
-                <option value="3. Kyle Jones">3. Kyle Jones</option>
-            </select> <span>*Required</span> <br>
-            <label> Trainer ID </label>
-            <select name="trainer id">
-                <option value="1, Chris Bumstead">1. Chris Bumstead</option>
-                <option value="2. Ronnie Coleman">2. Ronnie Coleman</option>
-                <option value="3. Manny Pacquiao">3. Manny Pacquiao</option>
-            </select> <span>*Required</span> <br>
+            <label for="input-customer">Customer Name: </label>
+            <select name="input-customer">
+                <option value="test">Select a Customer</option>
+                {{#each customers}}
+                <option value="{{this.customer_id}}">{{this.cst_first_name}} {{this.cst_last_name}}</option>
+                {{/each}}
+            </select> <br>
+            <label for="input-trainer">Personal Trainer: </label>
+            <select name="input-trainer">
+                <option value="test">Select a Personal Trainer</option>
+                {{#each trainers}}
+                <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
+                {{/each}}
+            </select>
         </fieldset>
-        <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer_Customer">
+        <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer Customer">
         <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>
+
+<script src="/js/delete_tc.js"></script>
