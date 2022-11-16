@@ -9,36 +9,31 @@
 <!--Read Membershps-->
 <div style="display:block">
     <p><strong>Browse Memberships</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="memberships-table">
+        <thead>
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Duration</th>
-                <td></td>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.Membership_Name}}</td>
+                <td>{{this.Description}}</td>
+                <td>{{this.Duration}}</td>
+                <td><button onclick="deleteMembership({{this.ID}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">2</td>
-                <td>General - 60</td>
-                <td>Access to locations 1 & 2</td>
-                <td>60 Days</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td>General - 365</td>
-                <td>Access to locations 1 & 2</td>
-                <td>365 Days</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">4</td>
-                <td>Premium - 365</td>
-                <td>All access</td>
-                <td>365 Days</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -46,15 +41,22 @@
 
 <!--Create Membership-->
 <div id="insert" style="display: block">
-    <form id="addMembership">
-        <legend><strong>Add Membership</strong></legend>
+    <form id="addMembership" method="POST" action="/add-membership-form">
+        <legend><strong>Add a Membership</strong></legend>
         <fieldset class="fields">
-            <label> Membership Name </label> <input type="text" name="membership name"> <span>*Required</span> <br>
-            <label> Description </label> <input type="text" name="description"> <span>*Required</span> <br>
-            <label> Duration </label> <input type="text" name="duration"> <span>*Required</span> <br>
+            <label> Membership Name </label> <input type="text" name="input-membershipname" id="input-membershipname">
+            <span>*Required</span>
+            <br>
+            <label> Description </label> <input type="text" name="input-description" id="input-description">
+            <span>*Required</span>
+            <br>
+            <label> Duration </label> <input type="text" name="input-duration" id="input-duration">
+            <span>*Required</span>
+            <br>
         </fieldset>
         <input class=" btn" type="submit" id="addMembership" value="Add a Membership">
         <input class="btn" type="button" value="cancel">
     </form>
 </div>
-<br>
+
+<script src="/js/delete_membership.js"></script>

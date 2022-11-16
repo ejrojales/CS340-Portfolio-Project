@@ -37,7 +37,19 @@ function deleteRow(personID) {
         // console.log(getAtt)
         if (table.rows[i].cells[0].innerHTML == personID.toString()) {
             table.deleteRow(i);
+            deleteDropDownMenu(personID);
             break;
         }
+    }
+}
+
+function deleteDropDownMenu(personID) {
+    let selectMenu = document.getElementById("mySelect");
+    for (let i = 0; i < selectMenu.length; i++) {
+        if (Number(selectMenu.options[i].value) === Number(personID)) {
+            selectMenu[i].remove();
+            break;
+        }
+
     }
 }

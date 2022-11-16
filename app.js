@@ -34,7 +34,7 @@ app.get('/customers', function (req, res) {
 
     // If there is no query string, we just perform a basic SELECT
     if (req.query.lname === undefined) {
-        query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers;";
+        query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id";
     }
 
     // If there is a query string, we assume this is a search, and return desired results
@@ -145,8 +145,59 @@ app.put('/put-person-ajax', function (req, res, next) {
 });
 
 app.get('/memberships', function (req, res) {
-    res.render('memberships');
+    query1 = "SELECT membership_id as ID, membership_name as Membership_Name, description as Description, duration as Duration FROM Memberships";
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+        let memberships = rows;
+        res.render('memberships', { data: memberships });
+    })
 });
+
+app.post('/add-membership-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Memberships (membership_name, description, duration) VALUES ('${data['input-membershipname']}', '${data['input-description']}', '${data['input-duration']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/memberships');
+        }
+    })
+})
+
+app.delete('/delete-membership-ajax/', function (req, res, next) {
+    let data = req.body;
+    let membershipID = parseInt(data.id);
+    let deleteMembership_Location = `DELETE FROM Membership_Location WHERE membership_id = ?`;
+    let deleteMembership = `DELETE FROM Memberships WHERE membership_id = ?`;
+    // Run the 1st query
+    db.pool.query(deleteMembership_Location, [membershipID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            // Run the second query
+            db.pool.query(deleteMembership, [membershipID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
+});
+
 
 app.get('/locations', function (req, res) {
     res.render('locations');
