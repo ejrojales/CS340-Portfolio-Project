@@ -9,28 +9,29 @@
 <!--Read Fitness_Classes-->
 <div style="display:block">
     <p><strong>Browse Fitness Classes</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="classes-table">
+        <thead>
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <td></td>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.[Class Name]}}</td>
+                <td><button onclick="deleteClass({{this.ID}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">1</td>
-                <td>Yoga</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">2</td>
-                <td>Zumba</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td>Pilates</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -38,14 +39,16 @@
 
 <!--Create Fitness Class-->
 <div id="insert" style="display: block">
-    <form id="addFitnessClass">
-        <legend><strong>Add Fitness Class</strong></legend>
+    <form id="addClass" method="POST" action="/add-class-form">
+        <legend><strong>Add a Class</strong></legend>
         <fieldset class="fields">
-            <label> Fitness Class Name </label> <input type="text" name="fitness class name"> <span>*Required</span>
-            <br>
+            <label> Class Name </label> <input type="text" name="input-classname" id="input-classname">
+            <span>*Required</span>
         </fieldset>
-        <input class=" btn" type="submit" id="addFitnessClass" value="Add a Fitness Class">
+        <input class=" btn" type="submit" id="addClass" value="Add a Class">
         <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>
+
+<script src="/js/delete_class.js"></script>

@@ -221,7 +221,7 @@ app.post('/add-location-form', function (req, res) {
             res.redirect('/locations');
         }
     })
-})
+});
 
 app.delete('/delete-location-ajax/', function (req, res, next) {
     let data = req.body;
@@ -253,7 +253,54 @@ app.delete('/delete-location-ajax/', function (req, res, next) {
 });
 
 app.get('/fitness_classes', function (req, res) {
-    res.render('fitness_classes');
+    query1 = "SELECT class_id as ID, class_name as 'Class Name' FROM Fitness_Classes";
+    db.pool.query(query1, function (error, rows, fields) {
+        let classes = rows;
+        res.render('fitness_classes', { data: classes });
+    })
+});
+
+app.post('/add-class-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Fitness_Classes (class_name) VALUES ('${data['input-classname']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/fitness_classes');
+        }
+    })
+})
+
+app.delete('/delete-class-ajax/', function (req, res, next) {
+    let data = req.body;
+    let classID = parseInt(data.id);
+    let deleteClass_Schedule = `DELETE FROM Class_Schedule WHERE class_id = ?`;
+    let deleteClass = `DELETE FROM Fitness_Classes WHERE class_id = ?`;
+    // Run the 1st query
+    db.pool.query(deleteClass_Schedule, [classID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            db.pool.query(deleteClass, [classID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
 });
 
 app.get('/personal_trainers', function (req, res) {
