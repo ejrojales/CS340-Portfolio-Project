@@ -275,7 +275,7 @@ app.post('/add-class-form', function (req, res) {
             res.redirect('/fitness_classes');
         }
     })
-})
+});
 
 app.delete('/delete-class-ajax/', function (req, res, next) {
     let data = req.body;
@@ -304,7 +304,57 @@ app.delete('/delete-class-ajax/', function (req, res, next) {
 });
 
 app.get('/personal_trainers', function (req, res) {
-    res.render('personal_trainers');
+    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', phone_number as 'Phone Number' FROM Personal_Trainers";
+    db.pool.query(query1, function (error, rows, fields) {
+        let trainers = rows;
+        res.render('personal_trainers', { data: trainers });
+    })
+});
+
+app.post('/add-trainer-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Personal_Trainers (pt_first_name, pt_last_name, phone_number) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['input-phonenumber']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/personal_trainers');
+        }
+    })
+});
+
+app.delete('/delete-trainer-ajax/', function (req, res, next) {
+    let data = req.body;
+    let trainerID = parseInt(data.id);
+    let deleteTrainer_Customer = `DELETE FROM Trainer_Customer WHERE trainer_id = ?`;
+    let deleteTrainer = `DELETE FROM Personal_Trainers WHERE trainer_id = ?`;
+    // Run the 1st query
+    db.pool.query(deleteTrainer_Customer, [trainerID], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        else {
+            // Run the second query
+            db.pool.query(deleteTrainer, [trainerID], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.sendStatus(204);
+                }
+            })
+        }
+    })
 });
 
 app.get('/trainer_customer', function (req, res) {

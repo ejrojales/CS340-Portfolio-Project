@@ -9,40 +9,33 @@
 <!--Read Personal Trainers-->
 <div style="display:block">
     <p><strong>Browse Personal Trainers</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="trainers-table">
+        <thead>
+            <!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders -->
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
-            <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Assigned Location</th>
-                <td></td>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.[First Name]}}</td>
+                <td>{{this.[Last Name]}}</td>
+                <td>{{this.[Phone Number]}}</td>
+                <td><button onclick="deleteTrainer({{this.ID}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">1</td>
-                <td>Chris</td>
-                <td>Bumstead</td>
-                <td>123-421-0091</td>
-                <td align="right">1</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">2</td>
-                <td>Ronnie</td>
-                <td>Coleman</td>
-                <td>123-543-1212</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td>Manny</td>
-                <td>Pacquiao</td>
-                <td>123-988-0912</td>
-                <td align="right">3</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -50,21 +43,20 @@
 
 <!--Create Personal Trainers-->
 <div id="insert" style="display: block">
-    <form id="addPersonalTrainer">
-        <legend><strong>Add Personal Trainer</strong></legend>
+    <form id="addTrainer" method="POST" action="/add-trainer-form">
+        <legend><strong>Add a Personal Trainer</strong></legend>
         <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="first name"> <span>*Required</span><br>
-            <label> Last Name </label> <input type="text" name="last name"> <span>*Required</span> <br>
-            <label> Phone Number </label> <input type="text" name="phone number"> <span>*Required</span> <br>
-            <label> Assigned Location </label>
-            <select name="location id">
-                <option value="1">1. 7292 Dictum Av.</option>
-                <option value="2">2. 5587 Nunc. Avenue</option>
-                <option value="3">3. 5037 Diam Rd.</option>
-            </select> <span>*Required</span> <br>
+            <label> First Name </label> <input type="text" name="input-fname" id="input-fname"> <span>*Required</span>
+            <br>
+            <label> Last Name </label> <input type="text" name="input-lname" id="input-lname"> <span>*Required</span>
+            <br>
+            <label> Phone Number </label> <input type="text" name="input-phonenumber" id="input-phonenumber">
+            <span>*Required</span>
         </fieldset>
-        <input class=" btn" type="submit" id="addPersonalTrainer" value="Add a Personal Trainer">
+        <input class=" btn" type="submit" id="addTrainer" value="Add a Personal Trainer">
         <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>
+
+<script src="/js/delete_trainer.js"></script>
