@@ -3,6 +3,9 @@
 -- get all Customer IDs and Names 
 SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id FROM Customers
 
+-- get Customer IDs and Names, Inner Join with Membership for dropdown list
+SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, Memberships.membership_name as Membership FROM Customers INNER JOIN Memberships on Memberships.membership_id = Customers.membership_id;
+
 -- Add a new Customer
 INSERT INTO Customers (cst_first_name, cst_last_name, active, email, membership_id) VALUES (:cst_first_nameInput, :cst_last_nameInput, 1, :emailInput, :membership_idInput)
 
@@ -45,6 +48,9 @@ DELETE FROM Memberships WHERE id = :membership_id_from_dropdown_Input
 -- get all Location IDs, operating hours, phone numbers, and addresses
 SELECT location_id, operating_hours, phone_number, address FROM Locations
 
+--SELECT query with aliases for location page
+SELECT location_id as ID, operating_hours as 'Operating Hours', phone_number as 'Phone Number', address as Address FROM Locations
+
 -- Add a new Location
 INSERT INTO Locations (operating_hours, phone_number, address) VALUES (:operating_hoursInput, :phone_numberInput, :addressInput)
 
@@ -62,6 +68,9 @@ DELETE FROM Locations WHERE id = :location_id_from_dropdown_Input
 -- get all Personal Trainer IDs, first names, last names, phone numbers, and assigned locations
 SELECT trainer_id, pt_first_name, pt_last_name, phone_number, assigned_location FROM Personal_Trainers
 
+-- Select query for trainers with Aliases
+SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', phone_number as 'Phone Number' FROM Personal_Trainers
+
 -- Populate locations dropdown for adding new PT
 SELECT location_id FROM Locations
 
@@ -76,6 +85,9 @@ SELECT trainer_id, pt_first_name, pt_last_name FROM Personal_Trainers
 
 -- Populate trainer dropdown for Trainer_Customer
 SELECT trainer_id FROM Trainer_Customer
+
+-- Select query for Trainer_Customer with Alises and concatenation
+SELECT tc_id as ID, Concat(Customers.cst_first_name, " ", Customers.cst_last_name) as "Customer", Concat(Personal_Trainers.pt_first_name, " ", Personal_Trainers.pt_last_name) as "Personal Trainer" from Trainer_Customer INNER JOIN Customers on Customers.customer_id = Trainer_Customer.customer_id INNER JOIN Personal_Trainers on Personal_Trainers.trainer_id = Trainer_Customer.trainer_id
 
 -- Associate a Customer with a Personal Trainer
 INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES (:customer_id_from_dropdown_Input, :trainer_id_from_dropdown_Input)
@@ -117,6 +129,9 @@ INSERT INTO Fitness_Classes (class_name) VALUES (:class_nameInput)
 
 -- Get Class id and name from Fitness Classes
 SELECT class_id, class_name FROM Fitness_Classes
+
+-- Select query with Aliases for classes
+SELECT class_id as ID, class_name as 'Class Name' FROM Fitness_Classes
 
 -- Delete a class from the fitness classes table
 DELETE FROM Fitness_Classes WHERE id = :class_id_from_dropdown_Input
