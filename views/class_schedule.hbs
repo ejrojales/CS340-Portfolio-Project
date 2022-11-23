@@ -1,4 +1,4 @@
-<h1>Class_Schedule</h1>
+<h1>Class Schedule</h1>
 
 <div>
     <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
@@ -10,41 +10,32 @@
 <!--Read Class_Schedule-->
 <div style="display:block">
     <p><strong>Browse Class Schedule</strong></p>
-    <table border="1" cellpadding="5">
-        <tbody>
-            <tr>
-                <th>Schedule ID</th>
-                <th>Time</th>
-                <th>Location ID</th>
-                <th>Class ID</th>
-                <th>Trainer ID</th>
-                <td></td>
-            </tr>
-            <tr>
-                <td align="right">1</td>
-                <td>10:00 - 11:00</td>
-                <td align="right">1</td>
-                <td align="right">1</td>
-                <td align="right">1</td>
+    <table border="1" cellpadding="5" id="schedule-table">
+        <thead>
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
 
-                <td><a href="#">Delete</a></td>
+        <tbody>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.[Schedule ID]}}>
+                <td>{{this.[Schedule ID]}}</td>
+                <td>{{this.Time}}</td>
+                <td>{{this.Location}}</td>
+                <td>{{this.Class}}</td>
+                <td>{{this.Instructor}}</td>
+                <td><button onclick="deleteSchedule({{this.[Schedule ID]}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">2</td>
-                <td>8:00 - 9:00</td>
-                <td align="right">2</td>
-                <td align="right">2</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td>18:00 - 19:00</td>
-                <td align="right">3</td>
-                <td align="right">3</td>
-                <td align="right">3</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -52,31 +43,42 @@
 
 <!--Create Class Schedule-->
 <div id="insert" style="display: block">
-    <form id="addClassSchedule">
-        <legend><strong>Add Class Schedule</strong></legend>
+    <form id="addSchedule" method="POST" action="/add-schedule-form">
+        <legend><strong>Add a Class Schedule</strong></legend>
         <fieldset class="fields">
-            <label> Time </label> <input type="text" name="time"> <span>*Required</span> <br>
-            <label> Location ID </label>
-            <select name="location id">
-                <option value="1">1. 7292 Dictum Av.</option>
-                <option value="2">2. 5587 Nunc. Avenue</option>
-                <option value="3">3. 5037 Diam Rd.</option>
+            <label> Time </label> <input type="text" name="input-time" id="input-time"> <span>*Required</span>
+            <br>
+
+            <label> Location </label>
+            <select name="input-location" id="input-location">
+                <option value="">Select a Location</option>
+                {{#each locations}}
+                <option value="{{this.location_id}}">{{this.address}}</option>
+                {{/each}}
+            </select> <span>*Required</span>
+            <br>
+
+            <label> Class </label>
+            <select name="input-class" id="input-class">
+                <option value="">Select a Fitness Class</option>
+                {{#each classes}}
+                <option value="{{this.class_id}}">{{this.class_name}}</option>
+                {{/each}}
             </select> <span>*Required</span> <br>
-            <label> Class ID </label>
-            <select name="class id">
-                <option value="yoga">1. Yoga</option>
-                <option value="zumba">2. Zumba</option>
-                <option value="pilates">3. Pilates</option>
-            </select> <span>*Required</span> <br>
-            <label> Trainer ID </label>
-            <select name="trainer id">
-                <option value="1">1. Chris Bumstead</option>
-                <option value="2">2. Ronnie Coleman</option>
-                <option value="3">3. Manny Pacquiao</option>
-            </select> <span>*Required</span> <br>
+
+            <label> Instructor </label>
+            <select name="input-instructor" id="input-instructor">
+                <option value="">Select an Instructor</option>
+                {{#each instructors}}
+                <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
+                {{/each}}
+            </select> <span>*Required</span>
+
         </fieldset>
-        <input class=" btn" type="submit" id="addClassSchedule" value="Add a Class Schedule">
-        <input class="btn" type="button" value="cancel">
+        <input class=" btn" type="submit" id="addCustomer" value="Add a Class Schedule">
+        <input class="btn" type="button" value="Cancel">
     </form>
 </div>
 <br>
+
+<script src="/js/delete_schedule.js"></script>

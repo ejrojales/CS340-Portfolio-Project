@@ -34,12 +34,12 @@ app.get('/customers', function (req, res) {
 
     // If there is no query string, we just perform a basic SELECT
     if (req.query.lname === undefined) {
-        query1 = "SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id";
+        query1 = "SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id";
     }
 
     // If there is a query string, we assume this is a search, and return desired results
     else {
-        query1 = `SELECT customer_id as ID, cst_first_name as First_Name, cst_last_name as Last_Name, active as Active, email as Email, membership_id as Membership_ID FROM Customers WHERE cst_last_name LIKE "${req.query.lname}%"`
+        query1 = `SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id WHERE cst_last_name LIKE "${req.query.lname}%"`
     }
 
     let query2 = "SELECT * FROM Memberships;";  // Query for dynamic dropdown menu to display memberships
@@ -304,7 +304,7 @@ app.delete('/delete-class-ajax/', function (req, res, next) {
 });
 
 app.get('/personal_trainers', function (req, res) {
-    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', phone_number as 'Phone Number' FROM Personal_Trainers";
+    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', phone_number as 'Phone Number', assigned_location as 'Assigned Location' FROM Personal_Trainers";
     db.pool.query(query1, function (error, rows, fields) {
         let trainers = rows;
         res.render('personal_trainers', { data: trainers });
@@ -410,7 +410,61 @@ app.delete('/delete-trainercustomer-ajax/', function (req, res, next) {
 });
 
 app.get('/class_schedule', function (req, res) {
-    res.render('class_schedule');
+    let query1 = "SELECT schedule_id as 'Schedule ID', time as Time, Locations.address as Location, Fitness_Classes.class_name as Class, Concat(Personal_Trainers.pt_first_name, ' ', Personal_Trainers.pt_last_name) as Instructor FROM Class_Schedule inner join Locations on Locations.location_id = Class_Schedule.location_id inner join Fitness_Classes on Fitness_Classes.class_id = Class_Schedule.class_id inner join Personal_Trainers on Personal_Trainers.trainer_id = Class_Schedule.trainer_id";
+    let query2 = "Select * from Personal_Trainers";
+    let query3 = "Select * from Fitness_Classes"
+    let query4 = "Select * from Locations"
+
+    db.pool.query(query1, function (error, rows, fields) {
+        let schedule = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let instructors = rows
+
+            db.pool.query(query3, (error, rows, fields) => {
+                let classes = rows
+
+                db.pool.query(query4, (error, rows, fields) => {
+                    let locations = rows;
+                    res.render('class_schedule', { data: schedule, instructors: instructors, classes: classes, locations: locations });
+
+                })
+            })
+        })
+
+    })
+});
+
+app.post('/add-schedule-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Class_Schedule (time, location_id, class_id, trainer_id) VALUES ('${data['input-time']}', '${data['input-location']}', '${data['input-class']}', '${data['input-instructor']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/class_schedule');
+        }
+    })
+});
+
+app.delete('/delete-schedule-ajax/', function (req, res, next) {
+    let data = req.body;
+    let scheduleID = parseInt(data.id);
+    let deleteClass_Schedule = `DELETE FROM Class_Schedule WHERE schedule_id = ?`;
+
+    db.pool.query(deleteClass_Schedule, [scheduleID], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
 });
 
 app.get('/membership_location', function (req, res) {

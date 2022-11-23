@@ -31,8 +31,8 @@
             {{#each data}}
             <tr data-value={{this.ID}}>
                 <td>{{this.ID}}</td>
-                <td>{{this.First_Name}}</td>
-                <td>{{this.Last_Name}}</td>
+                <td>{{this.[First Name]}}</td>
+                <td>{{this.[Last Name]}}</td>
                 <td>{{this.Active}}</td>
                 <td>{{this.Email}}</td>
                 <td>{{this.Membership}}</td>
@@ -93,7 +93,7 @@
     <select name="input-fullname" id="mySelect">
         <option value="test">Select a Customer</option>
         {{#each data}}
-        <option value="{{this.ID}}">{{this.First_Name}} {{this.Last_Name}}</option>
+        <option value="{{this.ID}}">{{this.[First Name]}} {{this.[Last Name]}}</option>
         {{/each}}
     </select>
 
