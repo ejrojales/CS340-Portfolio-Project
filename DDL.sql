@@ -14,7 +14,7 @@ SET AUTOCOMMIT = 0;
 -- Table Memberships`
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Memberships` (
-  `membership_id` INT AUTO_INCREMENT,
+  `membership_id` INT NOT NULL AUTO_INCREMENT,
   `membership_name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   `duration` VARCHAR(45) NOT NULL,
@@ -31,14 +31,13 @@ CREATE OR REPLACE TABLE `Customers` (
   `cst_last_name` VARCHAR(45) NOT NULL,
   `active` TINYINT(1) NOT NULL DEFAULT 1,
   `email` VARCHAR(45),
-  `membership_id` INT NOT NULL,
-  PRIMARY KEY (`customer_id`, `membership_id`),
+  `membership_id` INT,
+  PRIMARY KEY (`customer_id`),
   INDEX `fk_Customers_Memberships1_idx` (`membership_id` ASC) VISIBLE,
   CONSTRAINT `fk_Customers_Memberships1`
     FOREIGN KEY (`membership_id`)
     REFERENCES `Memberships` (`membership_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
+    ON DELETE SET NULL
     )
 ENGINE = InnoDB;
 
@@ -69,7 +68,7 @@ CREATE OR REPLACE TABLE `Personal_Trainers` (
   CONSTRAINT `fk_Personal_Trainers_Locations1`
     FOREIGN KEY (`assigned_location`)
     REFERENCES `Locations` (`location_id`)
-    ON DELETE CASCADE
+    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -87,12 +86,12 @@ CREATE OR REPLACE TABLE `Trainer_Customer` (
   CONSTRAINT `fk_Trainer_Customer_Customers1`
     FOREIGN KEY (`customer_id`)
     REFERENCES `Customers` (`customer_id`)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Trainer_Customer_Personal_Trainers1`
     FOREIGN KEY (`trainer_id`)
     REFERENCES `Personal_Trainers` (`trainer_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -109,13 +108,11 @@ CREATE OR REPLACE TABLE `Membership_Location` (
   CONSTRAINT `fk_Membership_Location_Memberships1`
     FOREIGN KEY (`membership_id`)
     REFERENCES `Memberships` (`membership_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_Membership_Location_Locations1`
     FOREIGN KEY (`location_id`)
     REFERENCES `Locations` (`location_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -150,13 +147,11 @@ CREATE OR REPLACE TABLE `Class_Schedule` (
   CONSTRAINT `fk_Class_Schedule_Fitness_Classes1`
     FOREIGN KEY (`class_id`)
     REFERENCES `Fitness_Classes` (`class_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_Class_Schedule_Personal_Trainers1`
     FOREIGN KEY (`trainer_id`)
     REFERENCES `Personal_Trainers` (`trainer_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 

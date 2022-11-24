@@ -34,7 +34,7 @@ app.get('/customers', function (req, res) {
 
     // If there is no query string, we just perform a basic SELECT
     if (req.query.lname === undefined) {
-        query1 = "SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id";
+        query1 = "SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers left join Memberships on Memberships.membership_id = Customers.membership_id";
     }
 
     // If there is a query string, we assume this is a search, and return desired results
@@ -83,28 +83,14 @@ app.post('/add-customer-form', function (req, res) {
 app.delete('/delete-person-ajax/', function (req, res, next) {
     let data = req.body;
     let personID = parseInt(data.id);
-    let deleteTrainer_Customer = `DELETE FROM Trainer_Customer WHERE customer_id = ?`;
     let deleteCustomer = `DELETE FROM Customers WHERE customer_id = ?`;
-    // Run the 1st query
-    db.pool.query(deleteTrainer_Customer, [personID], function (error, rows, fields) {
-        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+    db.pool.query(deleteCustomer, [personID], function (error, rows, fields) {
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            // Run the second query
-            db.pool.query(deleteCustomer, [personID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
 });
@@ -172,30 +158,18 @@ app.post('/add-membership-form', function (req, res) {
 app.delete('/delete-membership-ajax/', function (req, res, next) {
     let data = req.body;
     let membershipID = parseInt(data.id);
-    let deleteMembership_Location = `DELETE FROM Membership_Location WHERE membership_id = ?`;
     let deleteMembership = `DELETE FROM Memberships WHERE membership_id = ?`;
-    // Run the 1st query
-    db.pool.query(deleteMembership_Location, [membershipID], function (error, rows, fields) {
-        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+    db.pool.query(deleteMembership, [membershipID], function (error, rows, fields) {
+
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            // Run the second query
-            db.pool.query(deleteMembership, [membershipID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
+
 });
 
 app.get('/locations', function (req, res) {
@@ -226,30 +200,18 @@ app.post('/add-location-form', function (req, res) {
 app.delete('/delete-location-ajax/', function (req, res, next) {
     let data = req.body;
     let locationID = parseInt(data.id);
-    let deleteMembership_Location = `DELETE FROM Membership_Location WHERE location_id = ?`;
     let deleteLocation = `DELETE FROM Locations WHERE location_id = ?`;
-    // Run the 1st query
-    db.pool.query(deleteMembership_Location, [locationID], function (error, rows, fields) {
-        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+    db.pool.query(deleteLocation, [locationID], function (error, rows, fields) {
+
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            // Run the second query
-            db.pool.query(deleteLocation, [locationID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
+
 });
 
 app.get('/fitness_classes', function (req, res) {
@@ -280,31 +242,22 @@ app.post('/add-class-form', function (req, res) {
 app.delete('/delete-class-ajax/', function (req, res, next) {
     let data = req.body;
     let classID = parseInt(data.id);
-    let deleteClass_Schedule = `DELETE FROM Class_Schedule WHERE class_id = ?`;
     let deleteClass = `DELETE FROM Fitness_Classes WHERE class_id = ?`;
-    // Run the 1st query
-    db.pool.query(deleteClass_Schedule, [classID], function (error, rows, fields) {
+
+    db.pool.query(deleteClass, [classID], function (error, rows, fields) {
+
         if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            db.pool.query(deleteClass, [classID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
+
 });
 
 app.get('/personal_trainers', function (req, res) {
-    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', Personal_Trainers.phone_number as 'Phone Number', Locations.address as 'Assigned Location' FROM Personal_Trainers inner join Locations on Locations.location_id = Personal_Trainers.assigned_location";
+    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', Personal_Trainers.phone_number as 'Phone Number', Locations.address as 'Assigned Location' FROM Personal_Trainers left join Locations on Locations.location_id = Personal_Trainers.assigned_location";
     db.pool.query(query1, function (error, rows, fields) {
         let trainers = rows;
         res.render('personal_trainers', { data: trainers });
@@ -331,30 +284,18 @@ app.post('/add-trainer-form', function (req, res) {
 app.delete('/delete-trainer-ajax/', function (req, res, next) {
     let data = req.body;
     let trainerID = parseInt(data.id);
-    let deleteTrainer_Customer = `DELETE FROM Trainer_Customer WHERE trainer_id = ?`;
     let deleteTrainer = `DELETE FROM Personal_Trainers WHERE trainer_id = ?`;
-    // Run the 1st query
-    db.pool.query(deleteTrainer_Customer, [trainerID], function (error, rows, fields) {
-        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+    db.pool.query(deleteTrainer, [trainerID], function (error, rows, fields) {
+
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-        }
-
-        else {
-            // Run the second query
-            db.pool.query(deleteTrainer, [trainerID], function (error, rows, fields) {
-
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
-            })
+        } else {
+            res.sendStatus(204);
         }
     })
+
 });
 
 app.get('/trainer_customer', function (req, res) {
