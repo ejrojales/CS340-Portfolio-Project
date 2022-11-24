@@ -85,21 +85,26 @@
 
 
 
-<h2>Updating A Customer's Email Form</h2>
-<p>To update a specific user's email, select their name from the drop-down menu on the left and their desired
-    email from the drop down menu on the right</p>
+<h2>Updating A Customer's Membership</h2>
+<p>To update a specific customer's membership, select their name from the drop-down menu on the left and their desired
+    membership from the drop down menu on the right</p>
 <form id="update-person-form-ajax">
 
     <label for="input-fullname">Full name: </label>
-    <select name="input-fullname" id="mySelect">
-        <option value="test">Select a Customer</option>
+    <select name="input-fullname" id="mySelect" required>
+        <option value="">Select a Customer</option>
         {{#each data}}
         <option value="{{this.ID}}">{{this.[First Name]}} {{this.[Last Name]}}</option>
         {{/each}}
     </select>
 
-    <label for="input-email">Email: </label>
-    <input type="text" name="input-email" id="input-email-update">
+    <label for="input-membership">Membership: </label>
+    <select name="input-membership" id="input-membership-update" required>
+        <option value="">Select a Membership</option>
+        {{#each memberships}}
+        <option value='{"{{this.membership_id}}":"{{this.membership_name}}"}'>{{this.membership_name}}</option>
+        {{/each}}
+    </select>
     <input type="submit">
 
 </form>

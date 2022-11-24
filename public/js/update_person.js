@@ -9,17 +9,19 @@ updatePersonForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let inputFullName = document.getElementById("mySelect");
-    let inputEmail = document.getElementById("input-email-update");
+    let inputMembership = document.getElementById("input-membership-update");
 
     // Get the values from the form fields
     let fullNameValue = inputFullName.value;
-    let emailValue = inputEmail.value;
+    let membershipValue = inputMembership.value;
 
+    let membershipinfo = JSON.parse(membershipValue);
+    let membershipName = Object.values(membershipinfo)[0]
 
     // Put our data we want to send in a javascript object
     let data = {
         fullname: fullNameValue,
-        email: emailValue,
+        membership: Object.keys(membershipinfo)[0],
     }
 
     // Setup our AJAX request
@@ -32,7 +34,7 @@ updatePersonForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, fullNameValue);
+            updateRow(fullNameValue, membershipName);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -46,8 +48,7 @@ updatePersonForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, personID) {
-    let parsedData = JSON.parse(data);
+function updateRow(personID, membershipName) {
     let table = document.getElementById("customers-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -58,11 +59,10 @@ function updateRow(data, personID) {
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of email
-            let td = updateRowIndex.getElementsByTagName("td")[4];
+            // Get td of membership
+            let td = updateRowIndex.getElementsByTagName("td")[5];
 
-            // Reassign phoneNumber to our value we updated to
-            td.innerHTML = parsedData[0].email;
+            td.innerHTML = membershipName;
         }
     }
 }

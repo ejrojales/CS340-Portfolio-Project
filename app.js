@@ -97,15 +97,15 @@ app.delete('/delete-person-ajax/', function (req, res, next) {
 
 app.put('/put-person-ajax', function (req, res, next) {
     let data = req.body;
-    let email = data.email;
+    let membership = data.membership;
     let person = parseInt(data.fullname);
 
 
-    let queryUpdateEmail = `UPDATE Customers SET email = ? WHERE Customers.customer_id = ?`;
+    let queryUpdateEmail = `UPDATE Customers SET membership_id = ? WHERE Customers.customer_id = ?`;
     let selectCustomer = `SELECT * FROM Customers WHERE customer_id = ?`
 
     // Run the 1st query
-    db.pool.query(queryUpdateEmail, [email, person], function (error, rows, fields) {
+    db.pool.query(queryUpdateEmail, [membership, person], function (error, rows, fields) {
         if (error) {
 
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
