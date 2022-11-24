@@ -304,7 +304,7 @@ app.delete('/delete-class-ajax/', function (req, res, next) {
 });
 
 app.get('/personal_trainers', function (req, res) {
-    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', phone_number as 'Phone Number', assigned_location as 'Assigned Location' FROM Personal_Trainers";
+    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', Personal_Trainers.phone_number as 'Phone Number', Locations.address as 'Assigned Location' FROM Personal_Trainers inner join Locations on Locations.location_id = Personal_Trainers.assigned_location";
     db.pool.query(query1, function (error, rows, fields) {
         let trainers = rows;
         res.render('personal_trainers', { data: trainers });

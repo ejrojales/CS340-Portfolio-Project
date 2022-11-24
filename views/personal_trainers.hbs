@@ -47,15 +47,16 @@
     <form id="addTrainer" method="POST" action="/add-trainer-form">
         <legend><strong>Add a Personal Trainer</strong></legend>
         <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="input-fname" id="input-fname"> <span>*Required</span>
+            <label> First Name </label> <input type="text" name="input-fname" id="input-fname" required>
+            <span>*Required</span>
             <br>
-            <label> Last Name </label> <input type="text" name="input-lname" id="input-lname"> <span>*Required</span>
+            <label> Last Name </label> <input type="text" name="input-lname" id="input-lname" required>
+            <span>*Required</span>
             <br>
-            <label> Phone Number </label> <input type="text" name="input-phonenumber" id="input-phonenumber">
+            <label> Phone Number </label> <input type="text" name="input-phonenumber" id="input-phonenumber" required>
             <span>*Required</span>
         </fieldset>
         <input class=" btn" type="submit" id="addTrainer" value="Add a Personal Trainer">
-        <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>

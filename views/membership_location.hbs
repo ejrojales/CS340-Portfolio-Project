@@ -45,7 +45,7 @@
         <legend><strong>Add a Membership's Location Access</strong></legend>
         <fieldset class="fields">
             <label> Membership Name </label>
-            <select name="input-membership" id="input-membership">
+            <select name="input-membership" id="input-membership" required>
                 <option value="">Select a Membership</option>
                 {{#each memberships}}
                 <option value="{{this.membership_id}}">{{this.membership_name}}</option>
@@ -55,7 +55,7 @@
             <br>
 
             <label> Location </label>
-            <select name="input-location" id="input-location">
+            <select name="input-location" id="input-location" required>
                 <option value="">Select a Location</option>
                 {{#each locations}}
                 <option value="{{this.location_id}}">{{this.address}}</option>
@@ -65,7 +65,6 @@
             <br>
         </fieldset>
         <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership's Location Access">
-        <input class="btn" type="button" value="Cancel">
     </form>
 </div>
 <br>

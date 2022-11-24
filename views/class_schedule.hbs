@@ -46,11 +46,11 @@
     <form id="addSchedule" method="POST" action="/add-schedule-form">
         <legend><strong>Add a Class Schedule</strong></legend>
         <fieldset class="fields">
-            <label> Time </label> <input type="text" name="input-time" id="input-time"> <span>*Required</span>
+            <label> Time </label> <input type="text" name="input-time" id="input-time" required> <span>*Required</span>
             <br>
 
             <label> Location </label>
-            <select name="input-location" id="input-location">
+            <select name="input-location" id="input-location" required>
                 <option value="">Select a Location</option>
                 {{#each locations}}
                 <option value="{{this.location_id}}">{{this.address}}</option>
@@ -59,7 +59,7 @@
             <br>
 
             <label> Class </label>
-            <select name="input-class" id="input-class">
+            <select name="input-class" id="input-class" required>
                 <option value="">Select a Fitness Class</option>
                 {{#each classes}}
                 <option value="{{this.class_id}}">{{this.class_name}}</option>
@@ -67,7 +67,7 @@
             </select> <span>*Required</span> <br>
 
             <label> Instructor </label>
-            <select name="input-instructor" id="input-instructor">
+            <select name="input-instructor" id="input-instructor" required>
                 <option value="">Select an Instructor</option>
                 {{#each instructors}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
@@ -76,7 +76,6 @@
 
         </fieldset>
         <input class=" btn" type="submit" id="addCustomer" value="Add a Class Schedule">
-        <input class="btn" type="button" value="Cancel">
     </form>
 </div>
 <br>

@@ -63,13 +63,15 @@
     <form id="addCustomer" method="POST" action="/add-customer-form">
         <legend><strong>Add a Customer</strong></legend>
         <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="input-fname" id="input-fname"> <span>*Required</span>
+            <label> First Name </label> <input type="text" name="input-fname" id="input-fname" required>
+            <span>*Required</span>
             <br>
-            <label> Last Name </label> <input type="text" name="input-lname" id="input-lname"> <span>*Required</span>
+            <label> Last Name </label> <input type="text" name="input-lname" id="input-lname" required>
+            <span>*Required</span>
             <br>
-            <label> Email </label> <input type="text" name="input-email" id="input-email"> <br>
+            <label> Email </label> <input type="email" name="input-email" id="input-email"> <br>
             <label> Membership </label>
-            <select name="input-membership-id" id="input-membership-id">
+            <select name="input-membership-id" id="input-membership-id" required>
                 <option value="">Select a Membership</option>
                 {{#each memberships}}
                 <option value="{{this.membership_id}}">{{this.membership_name}}</option>
@@ -77,7 +79,6 @@
             </select> <span>*Required</span>
         </fieldset>
         <input class=" btn" type="submit" id="addCustomer" value="Add a Customer">
-        <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>

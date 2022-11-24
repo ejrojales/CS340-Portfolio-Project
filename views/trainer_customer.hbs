@@ -44,22 +44,21 @@
         <legend><strong>Add a Trainer Customer</strong></legend>
         <fieldset class="fields">
             <label for="input-customer">Customer Name: </label>
-            <select name="input-customer">
-                <option value="test">Select a Customer</option>
+            <select name="input-customer" required>
+                <option value="">Select a Customer</option>
                 {{#each customers}}
                 <option value="{{this.customer_id}}">{{this.cst_first_name}} {{this.cst_last_name}}</option>
                 {{/each}}
             </select> <br>
             <label for="input-trainer">Personal Trainer: </label>
-            <select name="input-trainer">
-                <option value="test">Select a Personal Trainer</option>
+            <select name="input-trainer" required>
+                <option value="">Select a Personal Trainer</option>
                 {{#each trainers}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
                 {{/each}}
             </select>
         </fieldset>
         <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer Customer">
-        <input class="btn" type="button" value="cancel">
     </form>
 </div>
 <br>
