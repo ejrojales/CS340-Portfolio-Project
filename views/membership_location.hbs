@@ -10,56 +10,30 @@
 <!--Read Membershp Locations-->
 <div style="display:block">
     <p><strong>Browse Membership Location</strong></p>
-    <table border="1" cellpadding="5">
+    <table border="1" cellpadding="5" id="membershiplocation-table">
+        <thead>
+            <thead>
+                <tr>
+                    {{#each data.[0]}}
+                    <th>
+                        {{@key}}
+                    </th>
+                    {{/each}}
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </thead>
+
         <tbody>
-            <tr>
-                <th>Membership Location ID</th>
-                <th>Membership ID</th>
-                <th>Location ID</th>
-                <td></td>
+            <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
+            {{#each data}}
+            <tr data-value={{this.ID}}>
+                <td>{{this.ID}}</td>
+                <td>{{this.[Membership Name]}}</td>
+                <td>{{this.[Location Access]}}</td>
+                <td><button onclick="deleteMembershipLocation({{this.ID}})">Delete</button></td>
             </tr>
-            <tr>
-                <td align="right">1</td>
-                <td align="right">2</td>
-                <td align="right">1</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">2</td>
-                <td align="right">2</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">3</td>
-                <td align="right">3</td>
-                <td align="right">1</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">4</td>
-                <td align="right">3</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">5</td>
-                <td align="right">4</td>
-                <td align="right">1</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">6</td>
-                <td align="right">4</td>
-                <td align="right">2</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
-            <tr>
-                <td align="right">7</td>
-                <td align="right">4</td>
-                <td align="right">3</td>
-                <td><a href="#">Delete</a></td>
-            </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
@@ -67,23 +41,33 @@
 
 <!--Create Membership Location-->
 <div id="insert" style="display: block">
-    <form id="addMembershipLocation">
-        <legend><strong>Add Membership Location</strong></legend>
+    <form id="addMembershipLocation" method="POST" action="/add-membershiplocation-form">
+        <legend><strong>Add a Membership's Location Access</strong></legend>
         <fieldset class="fields">
-            <label> Membership ID </label> <select name="membership name">
-                <option value="general - 60">2. General - 60</option>
-                <option value="general - 365">3. General - 365</option>
-                <option value="premium - 365">4. Premium - 365</option>
-            </select> <span>*Required</span> <br>
-            <label> Location ID </label>
-            <select name="location address">
-                <option value="7292 Dictum Av.">1. 7292 Dictum Av.</option>
-                <option value="5587 Nunc. Avenue">2. 5587 Nunc. Avenue</option>
-                <option value="5037 Diam Rd.">3. 5037 Diam Rd.</option>
-            </select> <span>*Required</span> <br>
+            <label> Membership Name </label>
+            <select name="input-membership" id="input-membership">
+                <option value="">Select a Membership</option>
+                {{#each memberships}}
+                <option value="{{this.membership_id}}">{{this.membership_name}}</option>
+                {{/each}}
+            </select>
+            <span>*Required</span>
+            <br>
+
+            <label> Location </label>
+            <select name="input-location" id="input-location">
+                <option value="">Select a Location</option>
+                {{#each locations}}
+                <option value="{{this.location_id}}">{{this.address}}</option>
+                {{/each}}
+            </select>
+            <span>*Required</span>
+            <br>
         </fieldset>
-        <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership Location">
-        <input class="btn" type="button" value="cancel">
+        <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership's Location Access">
+        <input class="btn" type="button" value="Cancel">
     </form>
 </div>
 <br>
+
+<script src="/js/delete_membership_location.js"></script>

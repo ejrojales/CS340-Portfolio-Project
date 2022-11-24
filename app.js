@@ -468,7 +468,55 @@ app.delete('/delete-schedule-ajax/', function (req, res, next) {
 });
 
 app.get('/membership_location', function (req, res) {
-    res.render('membership_location');
+    let query1 = "Select membership_location_id as ID, Memberships.membership_name as 'Membership Name', Locations.address as 'Location Access' from Membership_Location inner join Memberships on Memberships.membership_id = Membership_Location.membership_id inner join Locations on Locations.location_id = Membership_Location.location_id";
+    let query2 = "Select * from Memberships";
+    let query3 = "Select * from Locations";
+
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+        let membership_location = rows;
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let memberships = rows;
+
+            db.pool.query(query3, (error, rows, fields) => {
+                let locations = rows;
+                res.render('membership_location', { data: membership_location, memberships: memberships, locations: locations });
+            })
+        })
+
+    })
+});
+
+app.post('/add-membershiplocation-form', function (req, res) {
+    let data = req.body;
+
+    query1 = `INSERT INTO Membership_Location (membership_id, location_id) VALUES ('${data['input-membership']}', '${data['input-location']}')`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/membership_location');
+        }
+    })
+});
+
+app.delete('/delete-membershiplocation-ajax/', function (req, res, next) {
+    let data = req.body;
+    let memloc = parseInt(data.id);
+    let deleteMembership_Location = `DELETE FROM Membership_Location WHERE membership_location_id = ?`;
+
+    db.pool.query(deleteMembership_Location, [memloc], function (error, rows, fields) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+    })
 });
 
 /*
