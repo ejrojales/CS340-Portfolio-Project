@@ -14,15 +14,29 @@ updatePersonForm.addEventListener("submit", function (e) {
     // Get the values from the form fields
     let fullNameValue = inputFullName.value;
     let membershipValue = inputMembership.value;
+    let data;
+    let membershipName;
 
-    let membershipinfo = JSON.parse(membershipValue);
-    let membershipName = Object.values(membershipinfo)[0]
+    // If the membershipValue is an object: use JSON.parse and extract the membership name and value
+    // else None option was selected: Convert empty string to Null in put route in app.js
+    if (membershipValue != "") {
+        let membershipinfo = JSON.parse(membershipValue);
+        membershipName = Object.values(membershipinfo)[0]
 
-    // Put our data we want to send in a javascript object
-    let data = {
-        fullname: fullNameValue,
-        membership: Object.keys(membershipinfo)[0],
+        // Put our data we want to send in a javascript object
+        data = {
+            fullname: fullNameValue,
+            membership: Object.keys(membershipinfo)[0]
+        };
+    } else {
+        membershipName = membershipValue;
+        data = {
+            fullname: fullNameValue,
+            membership: membershipValue,
+        };
     }
+
+
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();

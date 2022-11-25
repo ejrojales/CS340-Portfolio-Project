@@ -54,7 +54,15 @@
             <span>*Required</span>
             <br>
             <label> Phone Number </label> <input type="text" name="input-phonenumber" id="input-phonenumber" required>
-            <span>*Required</span>
+            <span>*Required</span> <br>
+
+            <label> Location </label>
+            <select name="input-location" id="input-location" required>
+                <option value="">Select a Location</option>
+                {{#each locations}}
+                <option value="{{this.location_id}}">{{this.address}}</option>
+                {{/each}}
+            </select> <span>*Required</span>
         </fieldset>
         <input class=" btn" type="submit" id="addTrainer" value="Add a Personal Trainer">
     </form>

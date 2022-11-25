@@ -39,7 +39,7 @@ app.get('/customers', function (req, res) {
 
     // If there is a query string, we assume this is a search, and return desired results
     else {
-        query1 = `SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers inner join Memberships on Memberships.membership_id = Customers.membership_id WHERE cst_last_name LIKE "${req.query.lname}%"`
+        query1 = `SELECT customer_id as ID, cst_first_name as 'First Name', cst_last_name as 'Last Name', active as Active, email as Email, Memberships.membership_name as Membership FROM Customers left join Memberships on Memberships.membership_id = Customers.membership_id WHERE cst_last_name LIKE "${req.query.lname}%"`
     }
 
     let query2 = "SELECT * FROM Memberships;";  // Query for dynamic dropdown menu to display memberships
@@ -98,6 +98,11 @@ app.delete('/delete-person-ajax/', function (req, res, next) {
 app.put('/put-person-ajax', function (req, res, next) {
     let data = req.body;
     let membership = data.membership;
+
+    if (membership == "") {
+        membership = null
+    }
+
     let person = parseInt(data.fullname);
 
 
@@ -257,17 +262,23 @@ app.delete('/delete-class-ajax/', function (req, res, next) {
 });
 
 app.get('/personal_trainers', function (req, res) {
-    query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', Personal_Trainers.phone_number as 'Phone Number', Locations.address as 'Assigned Location' FROM Personal_Trainers left join Locations on Locations.location_id = Personal_Trainers.assigned_location";
+    let query1 = "SELECT trainer_id as ID, pt_first_name as 'First Name', pt_last_name as 'Last Name', Personal_Trainers.phone_number as 'Phone Number', Locations.address as 'Assigned Location' FROM Personal_Trainers left join Locations on Locations.location_id = Personal_Trainers.assigned_location";
+    let query2 = "Select * from Locations";
     db.pool.query(query1, function (error, rows, fields) {
         let trainers = rows;
-        res.render('personal_trainers', { data: trainers });
+
+        db.pool.query(query2, (error, rows, fields) => {
+            let locations = rows
+            res.render('personal_trainers', { data: trainers, locations: locations });
+        })
+
     })
 });
 
 app.post('/add-trainer-form', function (req, res) {
     let data = req.body;
 
-    query1 = `INSERT INTO Personal_Trainers (pt_first_name, pt_last_name, phone_number) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['input-phonenumber']}')`;
+    query1 = `INSERT INTO Personal_Trainers (pt_first_name, pt_last_name, phone_number, assigned_location) VALUES ('${data['input-fname']}', '${data['input-lname']}', '${data['input-phonenumber']}', '${data['input-location']}')`;
 
     db.pool.query(query1, function (error, rows, fields) {
 
@@ -351,7 +362,7 @@ app.delete('/delete-trainercustomer-ajax/', function (req, res, next) {
 });
 
 app.get('/class_schedule', function (req, res) {
-    let query1 = "SELECT schedule_id as 'Schedule ID', time as Time, Locations.address as Location, Fitness_Classes.class_name as Class, Concat(Personal_Trainers.pt_first_name, ' ', Personal_Trainers.pt_last_name) as Instructor FROM Class_Schedule inner join Locations on Locations.location_id = Class_Schedule.location_id inner join Fitness_Classes on Fitness_Classes.class_id = Class_Schedule.class_id inner join Personal_Trainers on Personal_Trainers.trainer_id = Class_Schedule.trainer_id";
+    let query1 = "SELECT schedule_id as 'Schedule ID', time as Time, Locations.address as Location, Fitness_Classes.class_name as Class, Concat(Personal_Trainers.pt_first_name, ' ', Personal_Trainers.pt_last_name) as Instructor FROM Class_Schedule left join Locations on Locations.location_id = Class_Schedule.location_id left join Fitness_Classes on Fitness_Classes.class_id = Class_Schedule.class_id left join Personal_Trainers on Personal_Trainers.trainer_id = Class_Schedule.trainer_id";
     let query2 = "Select * from Personal_Trainers";
     let query3 = "Select * from Fitness_Classes"
     let query4 = "Select * from Locations"
