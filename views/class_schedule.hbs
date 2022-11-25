@@ -80,4 +80,43 @@
 </div>
 <br>
 
+<div style="display: block">
+    <form id="update-schedule-form-ajax"></form>
+    <legend><strong>Update A Class Schedule</strong>
+    </legend>
+    <fieldset>
+        <label for="input-time">Time: </label> <input type="text" name="input-time" id="input-time" required>
+        <span>*Required</span> <br>
+
+        <label for="input-location">Location: </label>
+        <select name="input-location-update" id="input-location-update" required>
+            <option value="">Select a location</option>
+            {{#each locations}}
+            <option value="{{this.location_id}}">{{this.address}}</option>
+            {{/each}}
+        </select> <span>*Required</span> <br>
+
+        <label for="input-class">Class: </label>
+        <select name="input-class-update" id="input-class-update" required>
+            <option value="">Select a Fitness Class</option>
+            {{#each classes}}
+            <option value="{{this.class_id}}">{{this.class_name}}</option>
+            {{/each}}
+        </select> <span>*Required</span> <br>
+
+        <label for="input-instructor">Instructor: </label>
+        <select name="input-instructor-update" id="input-instructor-update" required>
+            <option value="">Select an Instructor</option>
+            {{#each instructors}}
+            <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
+            {{/each}}
+        </select> <span>*Required</span> <br>
+
+    </fieldset>
+    <input type="submit">
+    </form>
+
+</div>
+
+
 <script src="/js/delete_schedule.js"></script>

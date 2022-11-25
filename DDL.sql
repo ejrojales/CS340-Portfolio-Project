@@ -141,15 +141,15 @@ CREATE OR REPLACE TABLE `Class_Schedule` (
   CONSTRAINT `fk_Class_Schedule_Locations1`
     FOREIGN KEY (`location_id`)
     REFERENCES `Locations` (`location_id`)
-    ON DELETE SET NULL,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_Class_Schedule_Fitness_Classes1`
     FOREIGN KEY (`class_id`)
     REFERENCES `Fitness_Classes` (`class_id`)
-    ON DELETE SET NULL,
+    ON DELETE CASCADE,
   CONSTRAINT `fk_Class_Schedule_Personal_Trainers1`
     FOREIGN KEY (`trainer_id`)
     REFERENCES `Personal_Trainers` (`trainer_id`)
-    ON DELETE SET NULL)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
