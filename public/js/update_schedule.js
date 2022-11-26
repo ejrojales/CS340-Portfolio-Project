@@ -21,16 +21,23 @@ updateScheduleForm.addEventListener("submit", function (e) {
     let classValue = inputClass.value;
     let instructorValue = inputInstructor.value;
 
+    let locationObj = JSON.parse(locationValue);
+    let locationName = Object.values(locationObj)[0];
+
+    let classObj = JSON.parse(classValue);
+    let className = Object.values(classObj)[0];
+
+    let instructorObj = JSON.parse(instructorValue);
+    let instructorName = Object.values(instructorObj)[0];
+
+
     let data = {
         scheduleID: scheduleValue,
         time: timeValue,
-        location: locationValue,
-        class: classValue,
-        instructor: instructorValue
+        location: Object.keys(locationObj)[0],
+        class: Object.keys(classObj)[0],
+        instructor: Object.keys(instructorObj)[0]
     };
-
-
-
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
@@ -42,7 +49,7 @@ updateScheduleForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(scheduleValue);
+            updateRow(scheduleValue, timeValue, locationName, className, instructorName);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -56,8 +63,8 @@ updateScheduleForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(scheduleID,) {
-    let table = document.getElementById("customers-table");
+function updateRow(scheduleID, time, locationName, className, instructorName) {
+    let table = document.getElementById("schedule-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
         //iterate through rows
@@ -66,14 +73,19 @@ function updateRow(scheduleID,) {
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-            console.log(updateRowIndex);
 
-            // Get td of membership
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-            console.log(td);
-            console.log(td.innerHTML)
+            let tdTime = updateRowIndex.getElementsByTagName("td")[1];
+            tdTime.innerHTML = time;
 
-            //td.innerHTML = membershipName;
+            let tdLocation = updateRowIndex.getElementsByTagName("td")[2];
+            tdLocation.innerHTML = locationName;
+
+            let tdClass = updateRowIndex.getElementsByTagName("td")[3];
+            tdClass.innerHTML = className;
+
+            let tdInstructor = updateRowIndex.getElementsByTagName("td")[4];
+            tdInstructor.innerHTML = instructorName;
+
         }
     }
 }

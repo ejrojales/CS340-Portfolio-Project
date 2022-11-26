@@ -81,8 +81,7 @@
 <br>
 
 <!--Update Class Schedule-->
-<div style="display: block">
-    <form id="update-schedule-form-ajax"></form>
+<form id="update-schedule-form-ajax">
     <legend><strong>Update A Class Schedule</strong></legend>
     <fieldset>
         <label for="input-scheduleID">Class Schedule ID: </label>
@@ -94,13 +93,14 @@
         </select> <span>*Required</span> <br>
 
         <label for=" input-time">Time: </label> <input type="text" name="input-time-update" id="input-time-update"
-            required> <span>*Required</span> <br>
+            required>
+        <span>*Required</span> <br>
 
         <label for="input-location">Location: </label>
         <select name="input-location-update" id="input-location-update" required>
             <option value="">Select a location</option>
             {{#each locations}}
-            <option value="{{this.location_id}}">{{this.address}}</option>
+            <option value='{"{{this.location_id}}":"{{this.address}}"}'>{{this.address}}</option>
             {{/each}}
         </select> <span>*Required</span> <br>
 
@@ -108,7 +108,7 @@
         <select name="input-class-update" id="input-class-update" required>
             <option value="">Select a Fitness Class</option>
             {{#each classes}}
-            <option value="{{this.class_id}}">{{this.class_name}}</option>
+            <option value='{"{{this.class_id}}":"{{this.class_name}}"}'>{{this.class_name}}</option>
             {{/each}}
         </select> <span>*Required</span> <br>
 
@@ -116,13 +116,14 @@
         <select name="input-instructor-update" id="input-instructor-update" required>
             <option value="">Select an Instructor</option>
             {{#each instructors}}
-            <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
+            <option value='{"{{this.trainer_id}}":"{{this.pt_first_name}} {{this.pt_last_name}}"}'>
+                {{this.pt_first_name}} {{this.pt_last_name}}</option>
             {{/each}}
         </select> <span>*Required</span> <br>
-
     </fieldset>
     <input type="submit">
-    </form>
+</form>
 </div>
 
+<script src="/js/update_schedule.js"></script>
 <script src="/js/delete_schedule.js"></script>
