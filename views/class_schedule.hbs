@@ -80,13 +80,21 @@
 </div>
 <br>
 
+<!--Update Class Schedule-->
 <div style="display: block">
     <form id="update-schedule-form-ajax"></form>
-    <legend><strong>Update A Class Schedule</strong>
-    </legend>
+    <legend><strong>Update A Class Schedule</strong></legend>
     <fieldset>
-        <label for="input-time">Time: </label> <input type="text" name="input-time" id="input-time" required>
-        <span>*Required</span> <br>
+        <label for="input-scheduleID">Class Schedule ID: </label>
+        <select name="input-schedule-update" id="input-schedule-update" required>
+            <option value="">Select a Class Schedule ID</option>
+            {{#each data}}
+            <option value="{{this.[Schedule ID]}}">{{this.[Schedule ID]}}</option>
+            {{/each}}
+        </select> <span>*Required</span> <br>
+
+        <label for=" input-time">Time: </label> <input type="text" name="input-time-update" id="input-time-update"
+            required> <span>*Required</span> <br>
 
         <label for="input-location">Location: </label>
         <select name="input-location-update" id="input-location-update" required>

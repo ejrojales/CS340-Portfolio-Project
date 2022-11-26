@@ -419,6 +419,46 @@ app.delete('/delete-schedule-ajax/', function (req, res, next) {
     })
 });
 
+app.put('/put-schedule-ajax', function (req, res, next) {
+    let data = req.body;
+
+    let scheduleID = parseInt(data.scheduleID);
+    let time = data.time;
+    let locationID = parseInt(data.location);
+    let classID = parseInt(data.class);
+    let instructorID = parseInt(data.instructor);
+
+
+
+    let queryUpdateSchedule = `UPDATE Class_Schedule SET time = ?, location_id = ?, class_id = ?, trainer_id = WHERE Class_Schedule.schedule_id = ?`;
+    let selectCustomer = `SELECT * FROM Class_Schedule WHERE schedule_id = ?`
+
+    // Run the 1st query
+    db.pool.query(queryUpdateEmail, [membership, person], function (error, rows, fields) {
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else {
+            // Run the second query
+            db.pool.query(selectCustomer, [person], function (error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
 app.get('/membership_location', function (req, res) {
     let query1 = "Select membership_location_id as ID, Memberships.membership_name as 'Membership Name', Locations.address as 'Location Access' from Membership_Location inner join Memberships on Memberships.membership_id = Membership_Location.membership_id inner join Locations on Locations.location_id = Membership_Location.location_id";
     let query2 = "Select * from Memberships";
