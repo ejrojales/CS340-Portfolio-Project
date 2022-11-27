@@ -66,19 +66,18 @@
 <script src="/js/delete_tc.js"></script>
 <script>
     function myfunction(event) {
+
+        // Get the selected options from the input
         let customer = event.target.elements.inputcustomer.selectedOptions[0].text;
         let trainer = event.target.elements.inputtrainer.selectedOptions[0].text;
         let table = document.getElementById("trainercustomer-table");
 
+        // iterate over the table and see if there already exists a trainer and customer
         for (let i = 0, row; row = table.rows[i]; i++) {
-            //iterate through rows
-            //rows would be accessed using the "row" variable assigned in the for loop
             if (table.rows[i].cells[1].innerHTML == customer && table.rows[i].cells[2].innerHTML == trainer) {
                 event.preventDefault();
                 alert("Trainer and Customer already exists")
             }
         }
-
-
     }
 </script>
