@@ -77,8 +77,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE `Trainer_Customer` (
   `tc_id` INT NOT NULL AUTO_INCREMENT,
-  `customer_id` INT,
-  `trainer_id` INT,
+  `customer_id` INT NOT NULL,
+  `trainer_id` INT NOT NULL,
+  UNIQUE (`customer_id`, `trainer_id`),
   PRIMARY KEY (`tc_id`),
   INDEX `fk_Trainer_Customer_Customers1_idx` (`customer_id` ASC) VISIBLE,
   INDEX `fk_Trainer_Customer_Personal_Trainers1_idx` (`trainer_id` ASC) VISIBLE,
@@ -157,7 +158,7 @@ INSERT INTO `Memberships` (`membership_name`, `description`, `duration`) VALUES 
 INSERT INTO `Memberships` (`membership_name`, `description`, `duration`) VALUES ('General - 365', 'Access to locations 1 & 2', '365 Days');
 INSERT INTO `Memberships` (`membership_name`, `description`, `duration`) VALUES ('Premium - 365', 'All access', '365 days');
 
-INSERT INTO `Customers` (`cst_first_name`, `cst_last_name`, `email`, `membership_id`) VALUES ('John', 'Smith', 'johnsmith@gmail.com', '2');
+INSERT INTO `Customers` (`cst_first_name`, `cst_last_name`, `email`, `membership_id`) VALUES ('John', 'Smith', 'johnsmith@gmail.com', '1');
 INSERT INTO `Customers` (`cst_first_name`, `cst_last_name`, `email`, `membership_id`) VALUES ('Sarah', 'Jane', 'sarahjane@yahoo.com', '2');
 INSERT INTO `Customers` (`cst_first_name`, `cst_last_name`, `email`, `membership_id`) VALUES ('Kyle', 'Jones', 'kylejones@yahoo.com', '3');
 

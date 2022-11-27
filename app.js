@@ -332,7 +332,7 @@ app.get('/trainer_customer', function (req, res) {
 app.post('/add-trainercustomer-form', function (req, res) {
     let data = req.body;
 
-    query1 = `INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES ('${data['input-customer']}', '${data['input-trainer']}')`;
+    query1 = `INSERT INTO Trainer_Customer (customer_id, trainer_id) VALUES ('${data['inputcustomer']}', '${data['inputtrainer']}')`;
 
     db.pool.query(query1, function (error, rows, fields) {
 

@@ -23,7 +23,7 @@
             </thead>
         </thead>
 
-        <tbody>
+        <tbody id="tbody">
             <!-- For each row, print the id, fname, lname, homeworld and age, in order -->
             {{#each data}}
             <tr data-value={{this.ID}}>
@@ -40,18 +40,18 @@
 
 <!--Create Trainer_Customer-->
 <div id="insert" style="display: block">
-    <form id="addTrainerCustomer" method="POST" action="/add-trainercustomer-form">
+    <form id="addTrainerCustomer" method="POST" action="/add-trainercustomer-form" onsubmit="myfunction(event)">
         <legend><strong>Add a Trainer Customer</strong></legend>
         <fieldset class="fields">
-            <label for="input-customer">Customer Name: </label>
-            <select name="input-customer" required>
+            <label for="inputcustomer">Customer Name: </label>
+            <select name="inputcustomer" required>
                 <option value="">Select a Customer</option>
                 {{#each customers}}
                 <option value="{{this.customer_id}}">{{this.cst_first_name}} {{this.cst_last_name}}</option>
                 {{/each}}
             </select> <br>
-            <label for="input-trainer">Personal Trainer: </label>
-            <select name="input-trainer" required>
+            <label for="inputtrainer">Personal Trainer: </label>
+            <select name="inputtrainer" required>
                 <option value="">Select a Personal Trainer</option>
                 {{#each trainers}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
@@ -64,3 +64,21 @@
 <br>
 
 <script src="/js/delete_tc.js"></script>
+<script>
+    function myfunction(event) {
+        let customer = event.target.elements.inputcustomer.selectedOptions[0].text;
+        let trainer = event.target.elements.inputtrainer.selectedOptions[0].text;
+        let table = document.getElementById("trainercustomer-table");
+
+        for (let i = 0, row; row = table.rows[i]; i++) {
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+            if (table.rows[i].cells[1].innerHTML == customer && table.rows[i].cells[2].innerHTML == trainer) {
+                event.preventDefault();
+                alert("Trainer and Customer already exists")
+            }
+        }
+
+
+    }
+</script>
