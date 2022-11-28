@@ -42,14 +42,14 @@
                 {{#each customers}}
                 <option value="{{this.customer_id}}">{{this.cst_first_name}} {{this.cst_last_name}}</option>
                 {{/each}}
-            </select> <br>
+            </select> <span>*Required</span> <br>
             <label for="inputtrainer">Personal Trainer: </label>
             <select name="inputtrainer" required>
                 <option value="">Select a Personal Trainer</option>
                 {{#each trainers}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
                 {{/each}}
-            </select> <br>
+            </select> <span>*Required</span> <br>
             <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer Customer">
         </form>
     </div>
