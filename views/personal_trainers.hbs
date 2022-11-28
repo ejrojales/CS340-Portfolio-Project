@@ -1,14 +1,7 @@
-<h1> Personal Trainers </h1>
-<div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
 <!--Read Personal Trainers-->
-<div style="display:block">
-    <p><strong>Browse Personal Trainers</strong></p>
+<h2 class="pageTitle"> Personal Trainers </h2>
+
+<div>
     <table border="1" cellpadding="5" id="trainers-table">
         <thead>
             <!-- For just the first row, we print each key of the row object as a header cell so we
@@ -43,10 +36,10 @@
 <br>
 
 <!--Create Personal Trainers-->
-<div id="insert" style="display: block">
-    <form id="addTrainer" method="POST" action="/add-trainer-form">
-        <legend><strong>Add a Personal Trainer</strong></legend>
-        <fieldset class="fields">
+<div class="forms">
+    <div class="createForm">
+        <h3>Add a Personal Trainer</h3>
+        <form id="addTrainer" method="POST" action="/add-trainer-form">
             <label> First Name </label> <input type="text" name="input-fname" id="input-fname" required>
             <span>*Required</span>
             <br>
@@ -62,11 +55,9 @@
                 {{#each locations}}
                 <option value="{{this.location_id}}">{{this.address}}</option>
                 {{/each}}
-            </select> <span>*Required</span>
-        </fieldset>
-        <input class=" btn" type="submit" id="addTrainer" value="Add a Personal Trainer">
-    </form>
+            </select> <span>*Required</span> <br>
+            <input class=" btn" type="submit" id="addTrainer" value="Add a Personal Trainer">
+        </form>
+    </div>
 </div>
-<br>
-
 <script src="/js/delete_trainer.js"></script>

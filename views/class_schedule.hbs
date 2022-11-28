@@ -1,15 +1,7 @@
-<h1>Class Schedule</h1>
+<!--Read Class_Schedule-->
+<h2 class="pageTitle">Class Schedule</h2>
 
 <div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
-<!--Read Class_Schedule-->
-<div style="display:block">
-    <p><strong>Browse Class Schedule</strong></p>
     <table border="1" cellpadding="5" id="schedule-table">
         <thead>
             <thead>
@@ -41,12 +33,13 @@
 </div>
 <br>
 
-<!--Create Class Schedule-->
-<div id="insert" style="display: block">
-    <form id="addSchedule" method="POST" action="/add-schedule-form">
-        <legend><strong>Add a Class Schedule</strong></legend>
-        <fieldset class="fields">
-            <label> Time </label> <input type="text" name="input-time" id="input-time" required> <span>*Required</span>
+<div class="forms">
+    <!--Create Class Schedule-->
+    <div class="createForm">
+        <h3>Add a Class Schedule</h3>
+        <form id="addSchedule" method="POST" action="/add-schedule-form">
+            <label> Time </label> <input type="text" name="input-time" id="input-time" required>
+            <span>*Required</span>
             <br>
 
             <label> Location </label>
@@ -72,57 +65,58 @@
                 {{#each instructors}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
                 {{/each}}
-            </select> <span>*Required</span>
+            </select> <span>*Required</span> <br>
 
-        </fieldset>
-        <input class=" btn" type="submit" id="addCustomer" value="Add a Class Schedule">
-    </form>
+            <input class=" btn" type="submit" id="addCustomer" value="Add a Class Schedule">
+        </form>
+    </div>
+
+    <div class="updateForm">
+        <!--Update Class Schedule-->
+        <h3>Update a Class Schedule</h3>
+        <form id="update-schedule-form-ajax">
+            <label for="input-scheduleID">Class Schedule ID: </label>
+            <select name="input-schedule-update" id="input-schedule-update" required>
+                <option value="">Select a Class Schedule ID</option>
+                {{#each data}}
+                <option value="{{this.[Schedule ID]}}">{{this.[Schedule ID]}}</option>
+                {{/each}}
+            </select> <span>*Required</span> <br>
+
+            <label for=" input-time">Time: </label> <input type="text" name="input-time-update" id="input-time-update"
+                required>
+            <span>*Required</span> <br>
+
+            <label for="input-location">Location: </label>
+            <select name="input-location-update" id="input-location-update" required>
+                <option value="">Select a location</option>
+                {{#each locations}}
+                <option value='{"{{this.location_id}}":"{{this.address}}"}'>{{this.address}}</option>
+                {{/each}}
+            </select> <span>*Required</span> <br>
+
+            <label for="input-class">Class: </label>
+            <select name="input-class-update" id="input-class-update" required>
+                <option value="">Select a Fitness Class</option>
+                {{#each classes}}
+                <option value='{"{{this.class_id}}":"{{this.class_name}}"}'>{{this.class_name}}</option>
+                {{/each}}
+            </select> <span>*Required</span> <br>
+
+            <label for="input-instructor">Instructor: </label>
+            <select name="input-instructor-update" id="input-instructor-update" required>
+                <option value="">Select an Instructor</option>
+                {{#each instructors}}
+                <option value='{"{{this.trainer_id}}":"{{this.pt_first_name}} {{this.pt_last_name}}"}'>
+                    {{this.pt_first_name}} {{this.pt_last_name}}</option>
+                {{/each}}
+            </select> <span>*Required</span> <br>
+            <input type="submit">
+        </form>
+    </div>
+
 </div>
-<br>
 
-<!--Update Class Schedule-->
-<form id="update-schedule-form-ajax">
-    <legend><strong>Update A Class Schedule</strong></legend>
-    <fieldset>
-        <label for="input-scheduleID">Class Schedule ID: </label>
-        <select name="input-schedule-update" id="input-schedule-update" required>
-            <option value="">Select a Class Schedule ID</option>
-            {{#each data}}
-            <option value="{{this.[Schedule ID]}}">{{this.[Schedule ID]}}</option>
-            {{/each}}
-        </select> <span>*Required</span> <br>
-
-        <label for=" input-time">Time: </label> <input type="text" name="input-time-update" id="input-time-update"
-            required>
-        <span>*Required</span> <br>
-
-        <label for="input-location">Location: </label>
-        <select name="input-location-update" id="input-location-update" required>
-            <option value="">Select a location</option>
-            {{#each locations}}
-            <option value='{"{{this.location_id}}":"{{this.address}}"}'>{{this.address}}</option>
-            {{/each}}
-        </select> <span>*Required</span> <br>
-
-        <label for="input-class">Class: </label>
-        <select name="input-class-update" id="input-class-update" required>
-            <option value="">Select a Fitness Class</option>
-            {{#each classes}}
-            <option value='{"{{this.class_id}}":"{{this.class_name}}"}'>{{this.class_name}}</option>
-            {{/each}}
-        </select> <span>*Required</span> <br>
-
-        <label for="input-instructor">Instructor: </label>
-        <select name="input-instructor-update" id="input-instructor-update" required>
-            <option value="">Select an Instructor</option>
-            {{#each instructors}}
-            <option value='{"{{this.trainer_id}}":"{{this.pt_first_name}} {{this.pt_last_name}}"}'>
-                {{this.pt_first_name}} {{this.pt_last_name}}</option>
-            {{/each}}
-        </select> <span>*Required</span> <br>
-    </fieldset>
-    <input type="submit">
-</form>
 </div>
 
 <script src="/js/update_schedule.js"></script>

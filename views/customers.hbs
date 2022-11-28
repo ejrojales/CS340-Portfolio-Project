@@ -1,29 +1,19 @@
-<h1>Customers</h1>
+<!--Read Customers-->
+<h2 class="pageTitle">Customers</h2>
 
 <div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
-<!--Read Customers-->
-<div style="display:block">
-    <p><strong>Browse Customers</strong></p>
     <table border="1" cellpadding="5" id="customers-table">
         <thead>
             <!-- For just the first row, we print each key of the row object as a header cell so we
             know what each column means when the page renders -->
-            <thead>
-                <tr>
-                    {{#each data.[0]}}
-                    <th>
-                        {{@key}}
-                    </th>
-                    {{/each}}
-                    <th>Delete</th>
-                </tr>
-            </thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
         </thead>
 
         <tbody>
@@ -44,25 +34,26 @@
 </div>
 <br>
 
-<!--Search Customers-->
-<div id="search" style="display: block">
-    <h2>Search Using an HTML Form</h2>
-    <p>Search by last name using the field below. Partial last names are OK too!</p>
-    <form id="search-person-html" method='GET' action='/customers'>
-        <label for="input-lname">Search by Last Name: </label>
-        <input type="text" name="lname" id="input-lname-html-search">
 
-        <input type="submit">
-        <a href='/'><button>Reset</button></a>
-    </form>
-</div>
-<br>
+<div class="forms">
+    <!--Search Customers-->
+    <div class="searchForm">
+        <h3>Search Using an HTML Form</h3>
+        <p>Search by last name using the field below. Partial last names are OK too!</p>
+        <form id="search-person-html" method='GET' action='/customers'>
+            <label for="input-lname">Search by Last Name: </label>
+            <input type="text" name="lname" id="input-lname-html-search">
 
-<!--Create Customers-->
-<div id="insert" style="display: block">
-    <form id="addCustomer" method="POST" action="/add-customer-form">
-        <legend><strong>Add a Customer</strong></legend>
-        <fieldset class="fields">
+            <input type="submit">
+            <a href='/'><button>Reset</button></a>
+        </form>
+    </div>
+
+
+    <!--Create Customers-->
+    <div class="createForm">
+        <form id="addCustomer" method="POST" action="/add-customer-form">
+            <h3>Add a Customer</h3>
             <label> First Name </label> <input type="text" name="input-fname" id="input-fname" required>
             <span>*Required</span>
             <br>
@@ -76,39 +67,38 @@
                 {{#each memberships}}
                 <option value="{{this.membership_id}}">{{this.membership_name}}</option>
                 {{/each}}
-            </select> <span>*Required</span>
-        </fieldset>
-        <input class=" btn" type="submit" id="addCustomer" value="Add a Customer">
-    </form>
+            </select> <span>*Required</span> <br>
+            <input class=" btn" type="submit" id="addCustomer" value="Add a Customer">
+        </form>
+    </div>
+
+    <div class="updateForm">
+        <h3>Updating A Customer's Membership</h3>
+        <p>To update a specific customer's membership, select their name from the drop-down menu on the left and their
+            desired
+            membership from the drop down menu on the right</p>
+        <form id="update-person-form-ajax">
+
+            <label for="input-fullname">Full name: </label>
+            <select name="input-fullname" id="mySelect" required>
+                <option value="">Select a Customer</option>
+                {{#each data}}
+                <option value="{{this.ID}}">{{this.[First Name]}} {{this.[Last Name]}}</option>
+                {{/each}}
+            </select>
+
+            <label for="input-membership">Membership: </label>
+            <select name="input-membership" id="input-membership-update" required>
+                <option value="">Select a Membership</option>
+                {{#each memberships}}
+                <option value='{"{{this.membership_id}}":"{{this.membership_name}}"}'>{{this.membership_name}}</option>
+                {{/each}}
+                <option value="">None</option>
+            </select>
+            <input type="submit">
+        </form>
+    </div>
 </div>
-<br>
-
-
-
-<h2>Updating A Customer's Membership</h2>
-<p>To update a specific customer's membership, select their name from the drop-down menu on the left and their desired
-    membership from the drop down menu on the right</p>
-<form id="update-person-form-ajax">
-
-    <label for="input-fullname">Full name: </label>
-    <select name="input-fullname" id="mySelect" required>
-        <option value="">Select a Customer</option>
-        {{#each data}}
-        <option value="{{this.ID}}">{{this.[First Name]}} {{this.[Last Name]}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-membership">Membership: </label>
-    <select name="input-membership" id="input-membership-update" required>
-        <option value="">Select a Membership</option>
-        {{#each memberships}}
-        <option value='{"{{this.membership_id}}":"{{this.membership_name}}"}'>{{this.membership_name}}</option>
-        {{/each}}
-        <option value="">None</option>
-    </select>
-    <input type="submit">
-
-</form>
 
 <script src="/js/delete_person.js"></script>
 <script src="/js/update_person.js"></script>

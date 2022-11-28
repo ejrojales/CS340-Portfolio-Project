@@ -68,7 +68,7 @@ CREATE OR REPLACE TABLE `Personal_Trainers` (
   CONSTRAINT `fk_Personal_Trainers_Locations1`
     FOREIGN KEY (`assigned_location`)
     REFERENCES `Locations` (`location_id`)
-    ON DELETE SET NULL)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 

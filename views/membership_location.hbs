@@ -1,15 +1,7 @@
-<h1>Membership Location</h1>
+<!--Read Membershp Locations-->
+<h2 class="pageTitle">Membership Location</h2>
 
 <div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
-<!--Read Membershp Locations-->
-<div style="display:block">
-    <p><strong>Browse Membership Location</strong></p>
     <table border="1" cellpadding="5" id="membershiplocation-table">
         <thead>
             <thead>
@@ -39,11 +31,11 @@
 </div>
 <br>
 
-<!--Create Membership Location-->
-<div id="insert" style="display: block">
-    <form id="addMembershipLocation" method="POST" action="/add-membershiplocation-form">
-        <legend><strong>Add a Membership's Location Access</strong></legend>
-        <fieldset class="fields">
+<div class="forms">
+    <!--Create Membership Location-->
+    <div class="createForm">
+        <h3>Add a Membership's Location Access</h3>
+        <form id="addMembershipLocation" method="POST" action="/add-membershiplocation-form">
             <label> Membership Name </label>
             <select name="input-membership" id="input-membership" required>
                 <option value="">Select a Membership</option>
@@ -63,10 +55,8 @@
             </select>
             <span>*Required</span>
             <br>
-        </fieldset>
-        <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership's Location Access">
-    </form>
+            <input class=" btn" type="submit" id="addMembershipLocation" value="Add a Membership's Location Access">
+        </form>
+    </div>
 </div>
-<br>
-
 <script src="/js/delete_membership_location.js"></script>

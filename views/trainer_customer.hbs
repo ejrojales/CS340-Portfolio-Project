@@ -1,14 +1,7 @@
-<h1> Trainer Customer </h1>
-<div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
 <!--Read Trainer_Customer-->
+<h2 class="pageTitle">Trainer Customer</h2>
+
 <div style="display:block">
-    <p><strong>Browse Trainer Customer</strong></p>
     <table border="1" cellpadding="5" id="trainercustomer-table">
         <thead>
             <thead>
@@ -38,11 +31,11 @@
 </div>
 <br>
 
-<!--Create Trainer_Customer-->
-<div id="insert" style="display: block">
-    <form id="addTrainerCustomer" method="POST" action="/add-trainercustomer-form" onsubmit="myfunction(event)">
-        <legend><strong>Add a Trainer Customer</strong></legend>
-        <fieldset class="fields">
+<div class="forms">
+    <!--Create Trainer_Customer-->
+    <div class="createForm">
+        <h3>Add a Trainer Customer</h3>
+        <form id="addTrainerCustomer" method="POST" action="/add-trainercustomer-form" onsubmit="myfunction(event)">
             <label for="inputcustomer">Customer Name: </label>
             <select name="inputcustomer" required>
                 <option value="">Select a Customer</option>
@@ -56,13 +49,11 @@
                 {{#each trainers}}
                 <option value="{{this.trainer_id}}">{{this.pt_first_name}} {{this.pt_last_name}}</option>
                 {{/each}}
-            </select>
-        </fieldset>
-        <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer Customer">
-    </form>
+            </select> <br>
+            <input class=" btn" type="submit" id="addTrainerCustomer" value="Add a Trainer Customer">
+        </form>
+    </div>
 </div>
-<br>
-
 <script src="/js/delete_tc.js"></script>
 <script>
     function myfunction(event) {

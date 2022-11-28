@@ -1,14 +1,8 @@
-<h1> Fitness Classes </h1>
-<div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
 <!--Read Fitness_Classes-->
-<div style="display:block">
-    <p><strong>Browse Fitness Classes</strong></p>
+<h2 class="pageTitle"> Fitness Classes</h2>
+
+<div>
+
     <table border="1" cellpadding="5" id="classes-table">
         <thead>
             <thead>
@@ -37,18 +31,15 @@
 </div>
 <br>
 
-<!--Create Fitness Class-->
-<div id="insert" style="display: block">
-    <form id="addClass" method="POST" action="/add-class-form">
-        <legend><strong>Add a Class</strong></legend>
-        <fieldset class="fields">
+<div class="forms">
+    <!--Create Fitness Class-->
+    <div class="createForm">
+        <h3>Add a Fitness Class</h3>
+        <form id="addClass" method="POST" action="/add-class-form">
             <label> Class Name </label> <input type="text" name="input-classname" id="input-classname" required>
-            <span>*Required</span>
-        </fieldset>
-        <input class=" btn" type="submit" id="addClass" value="Add a Class">
-        <input class="btn" type="button" value="cancel">
-    </form>
+            <span>*Required</span> <br>
+            <input class=" btn" type="submit" id="addClass" value="Add a Class">
+        </form>
+    </div>
 </div>
-<br>
-
 <script src="/js/delete_class.js"></script>

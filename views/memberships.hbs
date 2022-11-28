@@ -1,14 +1,7 @@
-<h1> Memberships </h1>
-<div>
-    <a href="/">Home</a> | <a href="/customers">Customers</a> | <a href="/memberships">Memberships</a> | <a
-        href="/locations">Locations</a> | <a href="fitness_classes">Fitness_Classes</a> | <a
-        href="/personal_trainers">Personal_Trainers</a> | <a href="/trainer_customer">Trainer_Customer</a> | <a
-        href="/class_schedule">Class_Schedule</a> | <a href="/membership_location">Membership_Location</a>
-</div>
-
 <!--Read Membershps-->
-<div style="display:block">
-    <p><strong>Browse Memberships</strong></p>
+<h2 class="pageTitle"> Memberships </h2>
+
+<div>
     <table border="1" cellpadding="5" id="memberships-table">
         <thead>
             <thead>
@@ -39,11 +32,11 @@
 </div>
 <br>
 
-<!--Create Membership-->
-<div id="insert" style="display: block">
-    <form id="addMembership" method="POST" action="/add-membership-form">
-        <legend><strong>Add a Membership</strong></legend>
-        <fieldset class="fields">
+<div class="forms">
+    <!--Create Membership-->
+    <div class="createForm">
+        <h3>Add a Membership</h3>
+        <form id="addMembership" method="POST" action="/add-membership-form">
             <label> Membership Name </label> <input type="text" name="input-membershipname" id="input-membershipname"
                 required>
             <span>*Required</span>
@@ -54,9 +47,9 @@
             <label> Duration </label> <input type="text" name="input-duration" id="input-duration" required>
             <span>*Required</span>
             <br>
-        </fieldset>
-        <input class=" btn" type="submit" id="addMembership" value="Add a Membership">
-    </form>
-</div>
+            <input class=" btn" type="submit" id="addMembership" value="Add a Membership">
+        </form>
+    </div>
 
+</div>
 <script src="/js/delete_membership.js"></script>
