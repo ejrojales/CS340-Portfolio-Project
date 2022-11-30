@@ -62,7 +62,7 @@ CREATE OR REPLACE TABLE `Personal_Trainers` (
   `pt_first_name` VARCHAR(45) NOT NULL,
   `pt_last_name` VARCHAR(45) NOT NULL,
   `phone_number` VARCHAR(45) NOT NULL,
-  `assigned_location` INT,
+  `assigned_location` INT NOT NULL,
   PRIMARY KEY (`trainer_id`),
   INDEX `fk_Personal_Trainers_Locations1_idx` (`assigned_location` ASC) VISIBLE,
   CONSTRAINT `fk_Personal_Trainers_Locations1`
