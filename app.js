@@ -136,7 +136,7 @@ app.put('/put-person-ajax', function (req, res, next) {
 });
 
 app.get('/memberships', function (req, res) {
-    query1 = "SELECT membership_id as ID, membership_name as Membership_Name, description as Description, duration as Duration FROM Memberships";
+    query1 = "SELECT membership_id as ID, membership_name as 'Membership Name', description as Description, duration as Duration FROM Memberships";
     db.pool.query(query1, function (error, rows, fields) {
         let memberships = rows;
         res.render('memberships', { data: memberships });
@@ -310,7 +310,7 @@ app.delete('/delete-trainer-ajax/', function (req, res, next) {
 });
 
 app.get('/trainer_customer', function (req, res) {
-    let query1 = 'SELECT tc_id as ID, Concat(Customers.cst_first_name, " ", Customers.cst_last_name) as "Customer", Concat(Personal_Trainers.pt_first_name, " ", Personal_Trainers.pt_last_name) as "Personal Trainer" from Trainer_Customer inner join Customers on Customers.customer_id = Trainer_Customer.customer_id inner join Personal_Trainers on Personal_Trainers.trainer_id = Trainer_Customer.trainer_id';
+    let query1 = 'SELECT tc_id as ID, Concat(Customers.cst_first_name, " ", Customers.cst_last_name) as "Customer", Concat(Personal_Trainers.pt_first_name, " ", Personal_Trainers.pt_last_name) as "Personal Trainer" from Trainer_Customer inner join Customers on Customers.customer_id = Trainer_Customer.customer_id inner join Personal_Trainers on Personal_Trainers.trainer_id = Trainer_Customer.trainer_id Order By ID';
     let query2 = "SELECT * FROM Customers;";
     let query3 = "SELECT * FROM Personal_Trainers;";
 
