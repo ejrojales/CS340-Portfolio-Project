@@ -1,3 +1,7 @@
+// Citation for the following code:
+// Date: 12/05/2022
+// Adapted from: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Get the objects we need to modify
 let updatePersonForm = document.getElementById('update-person-form-ajax');
 

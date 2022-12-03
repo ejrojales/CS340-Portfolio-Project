@@ -1,3 +1,7 @@
+// Citation for the following code:
+// Date: 12/05/2022
+// Copied from: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 // Get an instance of mysql we can use in the app
 var mysql = require('mysql')
 

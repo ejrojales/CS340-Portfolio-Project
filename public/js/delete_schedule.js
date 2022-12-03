@@ -1,3 +1,7 @@
+// Citation for the following code:
+// Date: 12/05/2022
+// Adapted from: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+
 function deleteSchedule(scheduleID) {
     // Put our data we want to send in a javascript object
     let data = {
