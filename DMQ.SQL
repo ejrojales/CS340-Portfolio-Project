@@ -1,3 +1,7 @@
+-- Group 49, CS 340
+-- Members: Aaron Wheaton, Emmanuel Rojales
+-- This Data Manipulation Query file corresponds to Group 49's CS340 final project deliverables.
+
 -- CUSTOMER SECTION
 
 -- get all Customer IDs and Names 
