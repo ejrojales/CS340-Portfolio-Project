@@ -6,6 +6,7 @@
 
 -- Group 49, CS 340
 -- Members: Aaron Wheaton, Emmanuel Rojales
+-- This Data Definition Query file corresponds to Group 49's CS340 final project deliverables.
 
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
